@@ -55,12 +55,11 @@ Follow the course online at:
 
 ## 🛠 Course Features
 
-- **Hands-on Python Examples:** Code snippets, Jupyter notebooks, and explanations.  
-- **Step-by-Step Tutorials:** Each algorithm explained from theory to implementation.  
-- **Practical Projects:** Small exercises to reinforce concepts.  
-- **Beginner to Advanced:** Structured learning path suitable for all levels.  
-- **Full Coverage:** Covers classical ML, Deep Learning, RL, Graphs, Generative Models, and cutting-edge techniques.  
-
+- **Hands-on Python Examples**  
+- **Step-by-Step Tutorials**   
+- **Practical Projects**   
+- **Beginner to Advanced**   
+- **Full Coverage**
 ---
 
 📜 License
@@ -77,4 +76,5 @@ Anis Abid – Passionate about AI & Machine Learning
 GitHub: anisabidd88-pro
 
 Inspired to make complete ML learning accessible for everyone.
+
 
