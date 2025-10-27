@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Explainable / Interpretable Machine Learning</title>
+</head>
+<body>
+<h3><a href="index.html">home</a></h3>
+<h1 style="text-align: center;"><strong>Explainable / Interpretable Machine Learning</strong></h1>
+</br>
+<h2>What is Explainable / Interpretable Machine Learning?</h2>
+<p>
+  <strong>Explainable (or Interpretable) Machine Learning</strong> focuses on making machine learning models transparent and understandable. It helps users and developers understand how a model makes decisions, identify biases, and build trust, especially in critical applications like healthcare and finance.
+</p>
+<h2>Types of Explainable / Interpretable Machine Learning</h2>
+<img src="images/12.png" width="1400" height="500" alt="Explainable / Interpretable Machine Learning image">
+<table border="1" cellspacing="0" cellpadding="5">
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>What it is</th>
+      <th>When it is used</th>
+      <th>When it is preferred over other types</th>
+      <th>When it is not recommended</th>
+      <th>Examples of projects that is better use it incide him</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Model-Agnostic</td>
+      <td>Model-Agnostic Explainability methods (like LIME, SHAP, and Partial Dependence Plots (PDP)) are tools that explain any machine learning model, regardless of its internal structure. They analyze how input features influence predictions by observing the model’s behavior externally (as a black box).</td>
+      <td>Used when you need to understand or justify predictions from complex or opaque models (e.g., neural networks, ensemble models) and cannot access their internal parameters.</td>
+      <td>
+        • Better than Model-Specific methods when the model is non-transparent (like deep learning or gradient boosting).<br>
+        • Ideal when you need a universal explanation framework that works across different model types.<br>
+        • Useful in regulated industries (finance, healthcare) where interpretability is required.
+      </td>
+      <td>
+        • Not ideal for real-time systems (they can be computationally expensive).<br>
+        • Avoid when you already have inherently interpretable models (like decision trees or rule-based systems).<br>
+        • Can produce approximate or unstable explanations for highly nonlinear models.
+      </td>
+      <td>
+        • Credit risk scoring system: Using SHAP to explain why a customer was denied a loan.<br>
+        • Medical diagnosis AI: Using LIME to highlight which symptoms influenced a prediction.<br>
+        • Customer churn prediction: Using PDP to visualize how customer age or activity affects churn probability.
+      </td>
+    </tr>
+    <tr>
+      <td>Model-Specific</td>
+      <td>Model-Specific Explainability methods are techniques built into certain models to make them inherently interpretable. Examples:<br>
+        • Decision Trees: show decisions as paths.<br>
+        • Attention Mechanisms: reveal what parts of input the model focuses on.<br>
+        • Rule-Based Models: express logic in human-readable rules.
+      </td>
+      <td>Used when you want direct, built-in interpretability from the model itself — not just post-hoc explanations. Perfect for understanding how a specific model works internally.</td>
+      <td>
+        • Better than Model-Agnostic when you design the model yourself and want true interpretability, not approximations.<br>
+        • Ideal when the goal is trust + transparency (like in healthcare, law, or finance).<br>
+        • Great when the model itself is simple or structured, e.g., decision trees or models with attention maps.
+      </td>
+      <td>
+        • Not suitable for very complex data (images, audio, text) where interpretable models can’t match performance of black-box models.<br>
+        • Avoid when you need maximum accuracy over interpretability.<br>
+        • Less useful when you’re using ensemble or deep models that don’t have clear internal reasoning.
+      </td>
+      <td>
+        • Medical diagnosis system using Decision Trees to show clear rules behind each diagnosis.<br>
+        • Machine translation model using Attention Maps to visualize which source words influenced each translation.<br>
+        • Fraud detection using Rule-Based Models to explain why a transaction was flagged.
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+<!-- Code 1: SHAP [Model-Agnostic] -->
+<h3>Code 1 (SHAP [Model-Agnostic])</h3>
+<pre><code class="language-python">
+# Install SHAP if not installed
+# !pip install shap scikit-learn
+
+import shap
+from sklearn.datasets import load_iris
+from sklearn.model_selection import train_test_split
+from sklearn.ensemble import RandomForestClassifier
+
+# --- Load dataset ---
+X, y = load_iris(return_X_y=True)
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42)
+
+# --- Train a model ---
+model = RandomForestClassifier(random_state=42)
+model.fit(X_train, y_train)
+
+# --- Explain predictions with SHAP ---
+explainer = shap.Explainer(model, X_train)  # model-agnostic
+shap_values = explainer(X_test)
+
+# --- Visualize SHAP values for first sample ---
+shap.plots.waterfall(shap_values[0])
+
+# --- Optional: summary plot for all test samples ---
+shap.plots.beeswarm(shap_values)
+</code></pre>
+
+<!-- Code 2: LIME [Model-Agnostic] -->
+<h3>Code 2 (LIME [Model-Agnostic])</h3>
+<pre><code class="language-python">
+# Install LIME if not installed
+# !pip install lime scikit-learn
+
+import lime
+import lime.lime_tabular
+from sklearn.datasets import load_iris
+from sklearn.model_selection import train_test_split
+from sklearn.ensemble import RandomForestClassifier
+
+# --- Load dataset ---
+X, y = load_iris(return_X_y=True)
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42)
+feature_names = load_iris().feature_names
+class_names = load_iris().target_names
+
+# --- Train a model ---
+model = RandomForestClassifier(random_state=42)
+model.fit(X_train, y_train)
+
+# --- Create LIME explainer ---
+explainer = lime.lime_tabular.LimeTabularExplainer(
+    training_data=X_train,
+    feature_names=feature_names,
+    class_names=class_names,
+    mode='classification'
+)
+
+# --- Explain a single prediction ---
+i = 0  # index of test sample
+exp = explainer.explain_instance(X_test[i], model.predict_proba, num_features=4)
+
+# --- Show explanation ---
+exp.show_in_notebook(show_table=True)  # for Jupyter Notebook
+# or for console:
+print(exp.as_list())
+</code></pre>
+
+<!-- Code 3: Feature Importance [Model-Specific] -->
+<h3>Code 3 (Feature Importance [Model-Specific])</h3>
+<pre><code class="language-python">
+from sklearn.datasets import load_iris
+from sklearn.model_selection import train_test_split
+from sklearn.ensemble import RandomForestClassifier
+import pandas as pd
+
+# --- Load dataset ---
+X, y = load_iris(return_X_y=True)
+feature_names = load_iris().feature_names
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42)
+
+# --- Train a model ---
+model = RandomForestClassifier(random_state=42)
+model.fit(X_train, y_train)
+
+# --- Get feature importance ---
+importances = model.feature_importances_
+
+# --- Display in a table ---
+feature_importance_df = pd.DataFrame({
+    'Feature': feature_names,
+    'Importance': importances
+}).sort_values(by='Importance', ascending=False)
+
+print(feature_importance_df)
+</code></pre>
+</body>
+</html>

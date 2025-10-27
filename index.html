@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Machine learning</title>
+</head>
+<body>
+<h1 style="text-align: center;"><strong>Machine learning</strong></h1>
+</br>
+<h2>What is Machine Learning?</h2>
+<p>
+  <strong>Machine Learning</strong> is a field of computer science that focuses on enabling computers to learn from data instead of being explicitly programmed. It uses algorithms and statistical models to identify patterns, make predictions, and improve performance automatically as more data becomes available.
+</p>
+<h2>Types of Machine Learning</h2>
+<img src="images/image.png" width="700" height="500" alt="Tutorial image">
+<table border="1" cellspacing="0" cellpadding="5">
+  <tr>
+    <th>Type</th>
+    <th>What it is</th>
+    <th>When it is used</th>
+    <th>When it is preferred over other types</th>
+    <th>When it is not recommended</th>
+    <th>Examples of projects that is better use it incide him</th>
+  </tr>
+
+  <tr>
+    <td>Supervised Learning</td>
+    <td>Supervised Learning is a type of machine learning where the model is trained on data that includes both inputs and their correct outputs (labels). The goal is for the model to learn the relationship between them so it can later predict new outputs.</td>
+    <td>It is used when labeled data is available (i.e., the correct answers are known).</td>
+    <td>• When there is a large amount of accurately labeled data.<br>• When the goal is clear — a specific prediction or classification.<br>• When high accuracy and fast training are required compared to other methods.</td>
+    <td>• When there isn’t enough labeled data (because labeling is costly or difficult).<br>• When you want to discover hidden patterns or groups in data (Unsupervised Learning is preferred).<br>• When the problem requires learning from interaction or experience (Reinforcement Learning is preferred).</td>
+    <td>• Image classification (cat / dog).<br>• Speech or handwriting recognition.<br>• Weather or price prediction.<br>• Sentiment analysis in text (positive / negative).<br>• Fraud detection in banking transactions.</td>
+  </tr>
+
+  <tr>
+    <td>Unsupervised Learning</td>
+    <td>Unsupervised Learning is a type of machine learning used when data is unlabeled (i.e., the correct outputs are unknown). The goal is to discover structures, patterns, or hidden relationships within the data.</td>
+    <td>It is used when we want to understand data, group it into clusters, or reduce its dimensions without the need for labels.</td>
+    <td>• When there isn’t enough labeled data.<br>• When we want to discover new, previously unknown patterns.<br>• When the goal is exploratory data analysis or data compression.</td>
+    <td>• When labeled data and a clear prediction goal are available (Supervised Learning is preferred).<br>• When we need accurate results and direct performance evaluation (Unsupervised Learning is hard to evaluate).<br>• When the data is too small or random without clear structure.</td>
+    <td>• Grouping customers into marketing segments (Clustering).<br>• Detecting anomalies or fraud in data (Anomaly Detection).<br>• Image or data compression (Dimensionality Reduction).<br>• Topic analysis in text (Topic Modeling).</td>
+  </tr>
+
+  <tr>
+    <td>Semi-Supervised Learning</td>
+    <td>Semi-Supervised Learning is a type of learning that combines supervised and unsupervised methods. It uses a small portion of labeled data and a large portion of unlabeled data to improve model accuracy without requiring many labels.</td>
+    <td>It is used when we have a small amount of labeled data and a large amount of unlabeled data, and we want to leverage both to reduce the cost of labeling.</td>
+    <td>• When labeling data is expensive or time-consuming.<br>• When it’s easy to collect lots of data but hard to label it.<br>• When supervised learning performs poorly due to limited labeled data.</td>
+    <td>• When all data is either fully labeled (Supervised is preferred) or completely unlabeled (Unsupervised is preferred).<br>• When the unlabeled data is very different from the labeled data (it may harm the model).<br>• When there’s no good way to link labeled and unlabeled data.</td>
+    <td>• Image classification when only a few labeled images are available (e.g., cancer cell recognition).<br>• Text analysis when only part of the data is labeled with sentiments or topics.<br>• Speech recognition when only some audio clips are labeled.</td>
+  </tr>
+
+  <tr>
+    <td>Self-Supervised Learning</td>
+    <td>Self-Supervised Learning is a type of learning that automatically generates labels from the data itself without requiring human-labeled data. The model learns an auxiliary or “pretext” task from the data, such as predicting the missing part, and then uses that understanding to perform other tasks.</td>
+    <td>It is used when there is a large amount of data that is difficult or impossible to label manually — especially in text, images, or audio.</td>
+    <td>• When you need a powerful model without labeled data (e.g., training GPT or BERT).<br>• When you want to extract rich representations from raw data.<br>• When you want to combine the strengths of Unsupervised and Supervised Learning later (pretraining then fine-tuning).</td>
+    <td>• When the data is too small (the model won’t learn useful relationships).<br>• When it’s easy to obtain a lot of labeled data (Supervised Learning is preferred).<br>• When the task is simple and doesn’t require complex representations (e.g., small models or highly structured data).</td>
+    <td>• Training language models like GPT and BERT to predict missing words.<br>• Training vision models like SimCLR or DINO to learn image representations without labels.<br>• Training audio models like wav2vec 2.0 to understand speech without manual transcription.</td>
+  </tr>
+
+  <tr>
+    <td>Reinforcement Learning</td>
+    <td>Reinforcement Learning is a type of machine learning based on the concept of “reward and punishment.” The model (called an agent) learns by interacting with an environment and making decisions. It receives rewards for correct or effective actions and penalties for mistakes, improving its behavior over time.</td>
+    <td>It is used when the goal is to make sequential decisions in a dynamic environment, where it’s difficult to define the correct outputs beforehand but possible to evaluate the final result with a reward.</td>
+    <td>• When no ready-made data is available, but the system can learn through trial and error.<br>• When the problem involves a sequence of actions (such as games or robot control).<br>• When you want a model that continuously adapts to environmental changes.</td>
+    <td>• When clear labeled data is available (Supervised Learning is preferred).<br>• When experimentation in the environment is costly or dangerous (e.g., financial or medical decisions).<br>• When the environment cannot be simulated or rewards are hard to measure.</td>
+    <td>• Training AI in games like AlphaGo and OpenAI Five.<br>• Robot control (movement, balance, walking).<br>• Optimizing energy consumption or traffic management.<br>• Adaptive financial trading systems.</td>
+  </tr>
+
+  <tr>
+    <td>Deep Learning</td>
+    <td>Deep Learning is a branch of machine learning that relies on multi-layer neural networks (Deep Neural Networks) to process complex data and automatically extract advanced representations without the need for manual feature engineering.</td>
+    <td>It is used when the data is large and complex, such as images, audio, text, and video, and when discovering nonlinear and complex patterns that traditional models struggle to identify.</td>
+    <td>• When we have massive data and want very high accuracy.<br>• When the problems involve image, audio, or natural language recognition.<br>• When complex representations of data are needed that cannot be modeled with simple linear methods or fixed rules.</td>
+    <td>• When the data is very small (it may lead to overfitting).<br>• When resources are limited (Deep Learning requires GPUs and large memory).<br>• When the problem is simple and doesn’t require high complexity (simpler Supervised or Ensemble methods can be used).</td>
+    <td>• Image and video recognition (e.g., image classification, face detection).<br>• Natural language processing (e.g., text translation, text generation, sentiment analysis).<br>• Speech recognition and audio-to-text conversion.</td>
+  </tr>
+
+  <tr>
+    <td>Ensemble Learning</td>
+    <td>Ensemble Learning is a method that combines multiple models to create a single, stronger and more accurate model. The idea is that merging the decisions of multiple models reduces errors and increases accuracy compared to using a single model. The most popular methods are Bagging, Boosting, and Stacking.</td>
+    <td>It is used when we want to improve model accuracy, reduce bias or variance, and handle complex prediction problems.</td>
+    <td>• When individual models give similar or unstable results.<br>• When we want to improve performance in classification or prediction without changing the base algorithms.<br>• When errors are costly and we want to minimize risk.</td>
+    <td>• When resources are limited, as it increases memory and time consumption.<br>• When the base models are too weak or poor quality (Ensemble cannot fix very weak models).<br>• When the problem is very simple and doesn’t require extra complexity.</td>
+    <td>• Predicting stock or real estate prices by combining multiple predictive models.<br>• Medical classification (e.g., diagnosing diseases from medical images).<br>• Fraud detection in banking transactions.</td>
+  </tr>
+
+  <tr>
+    <td>Graph-based Learning</td>
+    <td>Graph-based Learning is a type of machine learning used to analyze data represented as a graph, where nodes represent entities and edges represent relationships between them. It includes techniques like Graph Neural Networks (GNNs).</td>
+    <td>It is used when data contains complex relationships between entities, not just individual features of each element, such as social networks or transportation networks.</td>
+    <td>• When relationships between data are important for prediction (e.g., a friend’s influence on a user’s decision).<br>• When data is not organized in rows and columns (like traditional tables).<br>• When it’s necessary to extract information from networks or connected structures.</td>
+    <td>• When the data lacks clear or connected relationships.<br>• When the number of nodes and edges is very small (complex models are unnecessary).<br>• When data can be easily represented in a table or conventional vectors.</td>
+    <td>• Friend or content recommendations in social networks.<br>• Fraud detection in banking transactions by analyzing relationships between accounts.<br>• Analyzing transportation or traffic networks to predict congestion.</td>
+  </tr>
+
+  <tr>
+    <td>Generative Models</td>
+    <td>Generative Models are models that learn to generate new data similar to the original data by understanding the data’s probability distribution. The most popular examples are GANs (Generative Adversarial Networks) and VAEs (Variational Autoencoders).</td>
+    <td>They are used when we want to create new data, improve data quality, or understand the internal distribution of the original data.</td>
+    <td>• When there is a need to create synthetic images, text, audio, or video.<br>• When wanting to improve other models through generative data (Data Augmentation).<br>• When aiming to learn complex representations of data (e.g., latent representations of images or text).</td>
+    <td>• When the primary goal is prediction or classification only (Supervised or Ensemble methods are preferred).<br>• When the data is very limited (generative models require large datasets to produce realistic results).<br>• When resources are limited, as training is usually very expensive.</td>
+    <td>• Generating synthetic images (e.g., realistic faces or fashion designs).<br>• Generating text or dialogues (e.g., ChatGPT).<br>• Enhancing image or video quality (e.g., Super-Resolution).<br>• Generating audio clips or music.</td>
+  </tr>
+
+  <tr>
+    <td>Neuro-Symbolic Learning</td>
+    <td>Neuro-Symbolic Learning is an approach that combines Deep Learning (Neural Networks) with Symbolic Reasoning. The goal is to merge the ability of neural networks to learn from large datasets with the capacity for symbolic thinking and logical inference.</td>
+    <td>It is used when we want models that understand rules and logic in addition to learning from data, especially in problems that require interpretation or complex reasoning.</td>
+    <td>• When the problem requires logical reasoning with unstructured data (text, images, mixed data).<br>• When more interpretable models are needed compared to traditional Deep Learning.<br>• When the data contains complex rules or relationships that Neural Networks alone struggle to learn.</td>
+    <td>• When the problem is simple and does not require logical inference (Deep Learning or Ensemble methods can be used).<br>• When resources are limited, as combining symbolic models with neural networks is complex and costly.<br>• When data is homogeneous and easy to predict without symbolic logic.</td>
+    <td>• Answering complex questions that require logical inference plus text understanding.<br>• AI systems for understanding laws or regulations.<br>• Medical image analysis with predefined diagnostic rules
+</table>
+<ul>
+  <h3><li><a href="Supervised Learning.html">Supervised Learning</a></li>
+  <li><a href="Unsupervised Learning.html">Unsupervised Learning</a></li>
+  <li><a href="Semi-Supervised Learning.html">Semi-Supervised Learning</a></li>
+  <li><a href="Self-Supervised Learning.html">Self-Supervised Learning</a></li>
+  <li><a href="Reinforcement Learning.html">Reinforcement Learning</a></li>
+  <li><a href="Deep Learning.html">Deep Learning</a></li>
+  <li><a href="Ensemble Learning.html">Ensemble Learning</a></li>
+  <li><a href="Graph-based Learning.html">Graph-based Learning</a></li>
+  <li><a href="Generative Models.html">Generative Models</a></li>
+  <li><a href="Neuro-Symbolic Learning.html">Neuro-Symbolic Learning</a></li>
+  <li><a href="Federated Learning.html">Federated Learning</a></li>
+  <li><a href="Explainable-Interpretable ML.html">Explainable / Interpretable ML</a></li>
+  <li><a href="AutoML.html">AutoML</a></li>
+  <li><a href="Agentic-Agent-based Learning.html">Agentic / Agent-based Learning</a></li></h3>
+</ul>
+</br>
+</br>
+</body>
+</html>

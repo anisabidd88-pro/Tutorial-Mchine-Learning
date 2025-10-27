@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Graph-based Learning</title>
+</head>
+<body>
+<h3><a href="index.html">home</a></h3>
+<h1 style="text-align: center;"><strong>Graph-based Learning</strong></h1>
+</br>
+<h2>What is Graph-based Learning?</h2>
+<p>
+  <strong>Graph-based Learning</strong> is a type of machine learning that focuses on data represented as graphs, where nodes represent entities and edges represent relationships. It is used to capture the structure and connections in data, enabling tasks like node classification, link prediction, and network analysis.
+</p>
+<h2>Types of Graph-based Learning</h2>
+<img src="images/8.png" width="1000" height="500" alt="Graph-based Learning image">
+<table border="1" cellspacing="0" cellpadding="5">
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>What it is</th>
+      <th>When it is used</th>
+      <th>When it is preferred over other types</th>
+      <th>When it is not recommended</th>
+      <th>Examples of projects that is better use it incide him</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>GNNs</td>
+      <td>Graph Neural Networks (GNNs) are deep learning models designed to operate on graph-structured data, learning node, edge, or graph-level representations by aggregating information from neighbors.</td>
+      <td>Used for tasks involving relational data, such as social networks, molecules, knowledge graphs, or transportation networks.</td>
+      <td>
+        • Better than GCN/GAT/Graph Autoencoders when you want a general-purpose graph model without a specific convolution or attention mechanism.<br>
+        • Ideal for initial experiments on graph data to understand node and graph relationships.
+      </td>
+      <td>
+        • When you need specialized operations, like convolution (GCN) or attention (GAT) — those may perform better.<br>
+        • When the graph is small or simple — traditional ML methods may suffice.<br>
+        • For non-graph-structured data — CNNs, RNNs, or Transformers are better.
+      </td>
+      <td>
+        • Node classification in a social network (predict user interests).<br>
+        • Link prediction in recommendation systems (predict friendships or connections).<br>
+        • Molecule property prediction in drug discovery.<br>
+        • Traffic flow prediction using road network graphs.
+      </td>
+    </tr>
+    <tr>
+      <td>GCNs</td>
+      <td>Graph Convolutional Networks (GCNs) are a type of Graph Neural Network that applies convolution-like operations on graph nodes, aggregating features from each node’s neighbors to learn node or graph-level embeddings.</td>
+      <td>Used for tasks on graph-structured data, especially when local neighborhood information is important, such as node classification, link prediction, or graph classification.</td>
+      <td>
+        • Better than general GNNs when you want explicit convolution operations for better local feature aggregation.<br>
+        • Better than GATs when attention mechanisms are unnecessary and simpler aggregation suffices.<br>
+        • Better than Graph Autoencoders when discriminative tasks (classification or prediction) are the goal rather than reconstruction.
+      </td>
+      <td>
+        • For graphs where different neighbor importance matters — GAT may perform better.<br>
+        • When the task is unsupervised graph representation learning — Graph Autoencoders are more suitable.<br>
+        • For non-graph data — CNNs, RNNs, or Transformers are better.
+      </td>
+      <td>
+        • Node classification — predicting types of users in a social network.<br>
+        • Link prediction — recommending new connections in a network.<br>
+        • Graph classification — predicting chemical properties of molecules.<br>
+        • Fraud detection — detecting suspicious transactions in financial networks.
+      </td>
+    </tr>
+    <tr>
+      <td>GATs</td>
+      <td>Graph Attention Networks (GATs) are a type of Graph Neural Network that use attention mechanisms to assign different weights to neighboring nodes when aggregating features, allowing the model to focus on the most relevant neighbors.</td>
+      <td>Used for graph-structured tasks where neighbor importance varies, such as node classification, link prediction, and graph-level prediction.</td>
+      <td>
+        • Better than GNNs/GCNs when not all neighbors contribute equally, and attention can improve performance.<br>
+        • Better than Graph Autoencoders for discriminative tasks rather than unsupervised reconstruction.<br>
+        • Preferred over GCNs when graph connectivity is irregular or highly variable.
+      </td>
+      <td>
+        • When graph is small or uniform, GCNs may suffice.<br>
+        • When computational resources are limited, as attention increases complexity.<br>
+        • For unsupervised embedding or reconstruction tasks — Graph Autoencoders are better.
+      </td>
+      <td>
+        • Node classification in social networks with variable connection importance.<br>
+        • Fraud detection in financial networks where certain connections matter more.<br>
+        • Molecule property prediction focusing on key atomic interactions.<br>
+        • Recommendation systems weighting important user-item links.
+      </td>
+    </tr>
+    <tr>
+      <td>Graph Autoencoders</td>
+      <td>Graph Autoencoders are a type of Graph Neural Network designed for unsupervised learning on graph-structured data. They encode nodes into a latent space and then reconstruct the graph structure (adjacency matrix) or node features.</td>
+      <td>Used for graph embedding, link prediction, and anomaly detection on graphs.</td>
+      <td>
+        • Better than GNNs/GCNs/GATs when the task is unsupervised representation learning rather than classification or prediction.<br>
+        • Preferred over GATs/GCNs when you want graph reconstruction or low-dimensional embeddings for downstream tasks.
+      </td>
+      <td>
+        • For discriminative tasks like node classification — GCNs or GATs are better.<br>
+        • When computational efficiency is critical — simpler GCNs may suffice.<br>
+        • For non-graph data — CNNs, RNNs, or Transformers are more appropriate.
+      </td>
+      <td>
+        • Link prediction — predicting missing edges in social networks.<br>
+        • Graph embedding — compressing large graphs for visualization or clustering.<br>
+        • Anomaly detection — identifying unusual nodes or edges in a network.<br>
+        • Recommendation systems — embedding users/items to predict interactions.
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+<h2>Code 1 (GraphSAGE [GNN])</h2>
+<pre><code>
+import networkx as nx
+import numpy as np
+
+# --- 1. Create a simple graph ---
+G = nx.Graph()
+G.add_edges_from([
+    (0, 1), (0, 2), (1, 2), (1, 3),
+    (2, 3), (3, 4)
+])
+
+# --- 2. Initialize node features ---
+features = {
+    0: np.array([1.0, 0.0]),
+    1: np.array([0.0, 1.0]),
+    2: np.array([1.0, 1.0]),
+    3: np.array([0.5, 0.5]),
+    4: np.array([0.0, 0.0])
+}
+
+# --- 3. GraphSAGE aggregation function ---
+def graphsage_aggregate(node, features, G):
+    neighbors = list(G.neighbors(node))
+    if len(neighbors) == 0:
+        return features[node]
+    neighbor_feats = np.array([features[n] for n in neighbors])
+    agg = neighbor_feats.mean(axis=0)  # mean aggregation
+    # Combine node's own feature with aggregated neighbor features
+    new_feature = np.tanh(features[node] + agg)  # simple non-linearity
+    return new_feature
+
+# --- 4. Update features for all nodes ---
+new_features = {}
+for node in G.nodes():
+    new_features[node] = graphsage_aggregate(node, features, G)
+
+# --- 5. Show new features ---
+for node, feat in new_features.items():
+    print(f"Node {node} new feature: {feat}")
+</code></pre>
+
+<h2>Code 2 (Multi-head Attention [GATs])</h2>
+<pre><code>
+import networkx as nx
+import numpy as np
+
+# --- 1. Create a simple graph ---
+G = nx.Graph()
+G.add_edges_from([
+    (0, 1), (0, 2), (1, 2), (1, 3),
+    (2, 3), (3, 4)
+])
+
+# --- 2. Initialize node features ---
+features = {
+    0: np.array([1.0, 0.0]),
+    1: np.array([0.0, 1.0]),
+    2: np.array([1.0, 1.0]),
+    3: np.array([0.5, 0.5]),
+    4: np.array([0.0, 0.0])
+}
+
+# --- 3. Simple attention function ---
+def attention(query, key):
+    # simple dot-product attention
+    score = np.dot(query, key)
+    return np.exp(score)
+
+# --- 4. Multi-head GAT aggregation ---
+def multihead_gat(node, features, G, heads=2):
+    neighbors = list(G.neighbors(node))
+    if len(neighbors) == 0:
+        return features[node]
+    
+    head_outputs = []
+    for h in range(heads):
+        # apply random linear transformation per head
+        W = np.random.randn(2, 2) * 0.5
+        node_feat = np.dot(features[node], W)
+        neighbor_feats = np.array([np.dot(features[n], W) for n in neighbors])
+        
+        # compute attention scores
+        scores = np.array([attention(node_feat, nf) for nf in neighbor_feats])
+        scores = scores / scores.sum()  # normalize
+        # aggregate neighbor features weighted by attention
+        agg = (scores[:, None] * neighbor_feats).sum(axis=0)
+        head_outputs.append(np.tanh(node_feat + agg))  # combine with own feature
+    
+    # Concatenate outputs from all heads
+    return np.concatenate(head_outputs)
+
+# --- 5. Update features for all nodes ---
+new_features = {}
+for node in G.nodes():
+    new_features[node] = multihead_gat(node, features, G, heads=2)
+
+# --- 6. Show new features ---
+for node, feat in new_features.items():
+    print(f"Node {node} new feature: {feat}")
+</code></pre>
+</body>
+</html>

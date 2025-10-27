@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Reinforcement Learning</title>
+</head>
+<body>
+<h3><a href="index.html">home</a></h3>
+<h1 style="text-align: center;"><strong>Reinforcement Learning</strong></h1>
+</br>
+<h2>What is Reinforcement Learning?</h2>
+<p>
+  <strong>Reinforcement Learning</strong> is a type of machine learning where an agent learns to make decisions by interacting with an environment. The agent receives rewards or penalties based on its actions and aims to learn a strategy (policy) that maximizes cumulative rewards over time.
+</p>
+<h2>Types of Reinforcement Learning</h2>
+<img src="images/5.png" width="1100" height="600" alt="Reinforcement Learning image">
+<table border="1" cellspacing="0" cellpadding="5">
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>What it is</th>
+      <th>When it is used</th>
+      <th>When it is preferred over other types</th>
+      <th>When it is not recommended</th>
+      <th>Examples of projects that is better use it incide him</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Model-Free</td>
+      <td>Model-Free Reinforcement Learning is a type of RL where the agent learns directly from experience (rewards and actions) without building a model of the environment’s dynamics. Examples: Q-Learning, SARSA, Policy Gradients.</td>
+      <td>Used when the environment is complex or unknown, and it’s hard to define how actions change states (no transition model available).</td>
+      <td>
+        • Better than Model-Based when the environment is unpredictable or too hard to simulate.<br>
+        • Better than Inverse RL when reward signals are clearly defined.<br>
+        • Better than Multi-Agent RL when only one agent acts in the environment.
+      </td>
+      <td>
+        • When environment simulation is cheap or available (Model-Based would be faster).<br>
+        • When rewards are sparse or delayed (learning becomes slow).<br>
+        • When you need interpretability or planning ahead.
+      </td>
+      <td>
+        • Autonomous game-playing agent (e.g., Atari, CartPole) using Q-Learning or DQN.<br>
+        • Robot navigation where the robot learns by trial and error.<br>
+        • Stock trading simulation where the agent learns profitable actions from rewards.
+      </td>
+    </tr>
+    <tr>
+      <td>Model-Based</td>
+      <td>Model-Based Reinforcement Learning builds an internal model of the environment (predicting next state and reward) and uses it to plan optimal actions before executing them.</td>
+      <td>Used when the environment’s dynamics can be estimated or simulated, and you want faster learning with fewer real-world interactions.</td>
+      <td>
+        • Better than Model-Free when interactions are expensive (e.g., in robotics).<br>
+        • Better than Multi-Agent RL when there’s only one agent and full control.<br>
+        • Better than Inverse RL when rewards are known and well-defined.
+      </td>
+      <td>
+        • When the environment is highly stochastic or complex to model accurately.<br>
+        • When the learned model is unreliable (leads to compounding errors).<br>
+        • When computation or storage for the model is limited.
+      </td>
+      <td>
+        • Simulated robot arm control where the model predicts movement results before acting.<br>
+        • Autonomous driving simulators that plan ahead using a learned environment model.<br>
+        • Game AI that simulates possible moves before choosing the best one (like chess planning).
+      </td>
+    </tr>
+    <tr>
+      <td>Multi-Agent RL</td>
+      <td>Multi-Agent Reinforcement Learning (MARL) involves multiple agents interacting within the same environment, each learning its own policy while considering others’ actions.</td>
+      <td>Used when tasks require cooperation, competition, or coordination between multiple decision-makers (agents).</td>
+      <td>
+        • Better than Model-Free or Model-Based when multiple agents must interact or share a space.<br>
+        • Better than Inverse RL when rewards are known and depend on multi-agent outcomes.<br>
+        • Ideal for environments with teamwork or competition (e.g., games, swarm control).
+      </td>
+      <td>
+        • When only one agent exists (simpler RL methods suffice).<br>
+        • When agent interactions cause instability or non-stationary learning.<br>
+        • When training cost is too high due to many agents’ combinations.
+      </td>
+      <td>
+        • Autonomous drone swarms coordinating to cover an area efficiently.<br>
+        • Multi-player game AI where agents learn cooperative or competitive strategies.<br>
+        • Traffic light control systems with multiple agents optimizing flow jointly.
+      </td>
+    </tr>
+    <tr>
+      <td>Inverse RL</td>
+      <td>Inverse Reinforcement Learning (IRL) aims to learn the reward function behind an expert’s behavior instead of learning the policy directly. The agent observes demonstrations and infers what motivates them.</td>
+      <td>Used when the reward function is unknown or hard to define but expert demonstrations are available.</td>
+      <td>
+        • Better than Model-Free or Model-Based when it’s easier to collect expert examples than to handcraft a reward.<br>
+        • Better than Multi-Agent RL when only one expert agent exists.<br>
+        • Ideal for imitation or human-behavior modeling.
+      </td>
+      <td>
+        • When rewards are already known (standard RL is simpler).<br>
+        • When expert data is noisy, biased, or limited.<br>
+        • When computational cost matters — IRL is usually expensive.
+      </td>
+      <td>
+        • Autonomous driving imitation — learning driving rules from human drivers.<br>
+        • Robotic manipulation — robot learns tasks by observing human demonstrations.<br>
+        • Healthcare treatment planning — learning doctors’ decision patterns from patient data.
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+<h2>Code 1 (Q-Learning)</h2>
+<pre><code>
+import numpy as np
+import random
+
+n_states = 6
+n_actions = 2
+q_table = np.zeros((n_states, n_actions))
+gamma = 0.8
+alpha = 0.1
+epsilon = 0.2
+episodes = 50
+
+def choose_action(state):
+    if random.uniform(0,1) < epsilon:
+        return random.choice([0,1])
+    else:
+        return np.argmax(q_table[state])
+
+def get_next_state_reward(state, action):
+    if action == 0:
+        next_state = max(0, state-1)
+    else:
+        next_state = min(n_states-1, state+1)
+    reward = 10 if next_state == n_states-1 else 0
+    return next_state, reward
+
+for ep in range(episodes):
+    state = 0
+    done = False
+    while not done:
+        action = choose_action(state)
+        next_state, reward = get_next_state_reward(state, action)
+        q_table[state, action] = q_table[state, action] + alpha * (
+            reward + gamma * np.max(q_table[next_state]) - q_table[state, action]
+        )
+        state = next_state
+        if state == n_states-1:
+            done = True
+
+print("Learned Q-Table:")
+print(q_table)
+
+state = 0
+steps = [state]
+while state != n_states-1:
+    action = np.argmax(q_table[state])
+    state, _ = get_next_state_reward(state, action)
+    steps.append(state)
+
+print("Path taken by learned policy:", steps)
+</code></pre>
+
+<h2>Code 2 (Policy Gradient)</h2>
+<pre><code>
+import torch
+import torch.nn as nn
+import torch.optim as optim
+import numpy as np
+
+n_states = 5
+n_actions = 2
+gamma = 0.99
+
+class PolicyNet(nn.Module):
+    def __init__(self):
+        super().__init__()
+        self.fc = nn.Linear(n_states, n_actions)
+    def forward(self, x):
+        return torch.softmax(self.fc(x), dim=-1)
+
+policy = PolicyNet()
+optimizer = optim.Adam(policy.parameters(), lr=0.01)
+
+def select_action(state):
+    state_tensor = torch.FloatTensor(state).unsqueeze(0)
+    probs = policy(state_tensor)
+    action = torch.multinomial(probs, 1).item()
+    return action, probs[0, action]
+
+def get_next_state_reward(state, action):
+    next_state = min(max(0, state + (1 if action==1 else -1)), n_states-1)
+    reward = 1 if next_state == n_states-1 else 0
+    done = next_state == n_states-1
+    return next_state, reward, done
+
+def one_hot(state):
+    vec = np.zeros(n_states)
+    vec[state] = 1
+    return vec
+
+for episode in range(200):
+    state = 0
+    rewards = []
+    log_probs = []
+    done = False
+    while not done:
+        state_vec = one_hot(state)
+        action, prob = select_action(state_vec)
+        log_probs.append(torch.log(prob))
+        state, reward, done = get_next_state_reward(state, action)
+        rewards.append(reward)
+    discounted_rewards = []
+    R = 0
+    for r in reversed(rewards):
+        R = r + gamma * R
+        discounted_rewards.insert(0, R)
+    discounted_rewards = torch.FloatTensor(discounted_rewards)
+    loss = -torch.sum(torch.stack(log_probs) * discounted_rewards)
+    optimizer.zero_grad()
+    loss.backward()
+    optimizer.step()
+
+print("Training finished!")
+
+state = 0
+steps = [state]
+while state != n_states-1:
+    state_vec = one_hot(state)
+    action, _ = select_action(state_vec)
+    state, _, _ = get_next_state_reward(state, action)
+    steps.append(state)
+
+print("Path taken by learned policy:", steps)
+</code></pre>
+
+<h2>Code 3 (MCTS-based RL)</h2>
+<pre><code>
+import math
+import random
+
+n_states = 5
+n_actions = 2
+goal_state = 4
+
+def get_next_state_reward(state, action):
+    next_state = min(max(0, state + (1 if action == 1 else -1)), n_states-1)
+    reward = 1 if next_state == goal_state else 0
+    done = next_state == goal_state
+    return next_state, reward, done
+
+class Node:
+    def __init__(self, state, parent=None):
+        self.state = state
+        self.parent = parent
+        self.children = {}
+        self.visits = 0
+        self.value = 0.0
+
+def ucb1(node, child):
+    if child.visits == 0:
+        return float('inf')
+    return child.value / child.visits + math.sqrt(2 * math.log(node.visits) / child.visits)
+
+def tree_policy(node):
+    for action in range(n_actions):
+        if action not in node.children:
+            next_state, _, _ = get_next_state_reward(node.state, action)
+            node.children[action] = Node(next_state, node)
+            return node.children[action]
+    ucb_values = [ucb1(node, child) for child in node.children.values()]
+    best_action = list(node.children.keys())[ucb_values.index(max(ucb_values))]
+    return node.children[best_action]
+
+def default_policy(state):
+    total_reward = 0
+    steps = 0
+    done = False
+    while not done and steps < 10:
+        action = random.choice([0,1])
+        state, reward, done = get_next_state_reward(state, action)
+        total_reward += reward
+        steps += 1
+    return total_reward
+
+def backup(node, reward):
+    while node is not None:
+        node.visits += 1
+        node.value += reward
+        node = node.parent
+
+def mcts(root, iterations=50):
+    for _ in range(iterations):
+        node = tree_policy(root)
+        reward = default_policy(node.state)
+        backup(node, reward)
+    action_visits = {action: child.visits for action, child in root.children.items()}
+    best_action = max(action_visits, key=action_visits.get)
+    return best_action
+
+state = 0
+steps = [state]
+while state != goal_state:
+    root = Node(state)
+    action = mcts(root, iterations=50)
+    state, _, _ = get_next_state_reward(state, action)
+    steps.append(state)
+
+print("Path found by MCTS-based agent:", steps)
+</code></pre>
+
+<h2>Code 4 (Adversarial Inverse RL)</h2>
+<pre><code>
+import torch
+import torch.nn as nn
+import torch.optim as optim
+import numpy as np
+import random
+
+n_states = 5
+n_actions = 2
+goal_state = 4
+
+def get_next_state(state, action):
+    next_state = min(max(0, state + (1 if action == 1 else -1)), n_states-1)
+    return next_state
+
+expert_demo = [0,1,2,3,4]
+
+def one_hot(state):
+    vec = np.zeros(n_states)
+    vec[state] = 1
+    return vec
+
+class PolicyNet(nn.Module):
+    def __init__(self):
+        super().__init__()
+        self.fc = nn.Linear(n_states, n_actions)
+    def forward(self, x):
+        return torch.softmax(self.fc(x), dim=-1)
+
+class Discriminator(nn.Module):
+    def __init__(self):
+        super().__init__()
+        self.fc = nn.Sequential(
+            nn.Linear(n_states + n_actions, 16),
+            nn.ReLU(),
+            nn.Linear(16,1),
+            nn.Sigmoid()
+        )
+    def forward(self, state, action):
+        x = torch.cat([state, action], dim=-1)
+        return self.fc(x)
+
+policy = PolicyNet()
+discriminator = Discriminator()
+policy_opt = optim.Adam(policy.parameters(), lr=0.01)
+disc_opt = optim.Adam(discriminator.parameters(), lr=0.01)
+loss_fn = nn.BCELoss()
+
+for epoch in range(200):
+    state = 0
+    agent_states = []
+    agent_actions = []
+    while state != goal_state:
+        state_vec = torch.FloatTensor(one_hot(state)).unsqueeze(0)
+        probs = policy(state_vec)
+        action = torch.multinomial(probs, 1).item()
+        action_vec = torch.zeros((1,n_actions))
+        action_vec[0, action] = 1
+        agent_states.append(state_vec)
+        agent_actions.append(action_vec)
+        state = get_next_state(state, action)
+    
+    expert_states = [torch.FloatTensor(one_hot(s)).unsqueeze(0) for s in expert_demo[:-1]]
+    expert_actions = []
+    for i in range(len(expert_demo)-1):
+        act_vec = torch.zeros((1,n_actions))
+        act_vec[0,1] = 1
+        expert_actions.append(act_vec)
+    
+    disc_opt.zero_grad()
+    agent_preds = torch.cat([discriminator(s,a) for s,a in zip(agent_states, agent_actions)])
+    expert_preds = torch.cat([discriminator(s,a) for s,a in zip(expert_states, expert_actions)])
+    
+    agent_labels = torch.zeros_like(agent_preds)
+    expert_labels = torch.ones_like(expert_preds)
+    
+    loss = loss_fn(agent_preds, agent_labels) + loss_fn(expert_preds, expert_labels)
+    loss.backward()
+    disc_opt.step()
+    
+    policy_opt.zero_grad()
+    rewards = torch.cat([discriminator(s,a) for s,a in zip(agent_states, agent_actions)])
+    policy_loss = -torch.sum(torch.log(rewards + 1e-8))
+    policy_loss.backward()
+    policy_opt.step()
+
+state = 0
+steps = [state]
+while state != goal_state:
+    state_vec = torch.FloatTensor(one_hot(state)).unsqueeze(0)
+    probs = policy(state_vec)
+    action = torch.multinomial(probs,1).item()
+    state = get_next_state(state, action)
+    steps.append(state)
+
+print("Path learned by AIRL agent:", steps)
+</code></pre>
+</body>
+</html>

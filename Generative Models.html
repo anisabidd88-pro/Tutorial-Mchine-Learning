@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Generative Models</title>
+</head>
+<body>
+<h3><a href="index.html">home</a></h3>
+<h1 style="text-align: center;"><strong>Generative Models</strong></h1>
+</br>
+<h2>What is Generative Models?</h2>
+<p>
+  <strong>Generative Models</strong> are a class of machine learning models that learn to generate new data samples similar to the training data. They can create images, text, or other data types, and are widely used in applications like image synthesis, text generation, and data augmentation.
+</p>
+<h2>Types of Generative Models</h2>
+<img src="images/9.png" width="1100" height="600" alt="Generative Models image">
+<table border="1" cellspacing="0" cellpadding="5">
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>What it is</th>
+      <th>When it is used</th>
+      <th>When it is preferred over other types</th>
+      <th>When it is not recommended</th>
+      <th>Examples of projects that is better use it incide him</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>GANs</td>
+      <td>Generative Adversarial Networks (GANs) are deep generative models consisting of two networks — a generator that creates data and a discriminator that evaluates its authenticity — trained in an adversarial setup to produce realistic data samples.</td>
+      <td>Used for data generation, image synthesis, style transfer, super-resolution, and data augmentation.</td>
+      <td>
+        • Better than VAE for highly realistic and sharp images.<br>
+        • Faster than Diffusion Models for generating samples.<br>
+        • More suitable than Normalizing Flows when exact likelihood is not required but visual fidelity matters.<br>
+        • Better than Energy-Based Models for generating complex high-dimensional data with adversarial feedback.
+      </td>
+      <td>
+        • When dataset is very small — GANs can be unstable.<br>
+        • When stable training or interpretability is critical.<br>
+        • When the task is representation learning rather than generation — VAE or flows may be better.
+      </td>
+      <td>
+        • Image generation — generating realistic human faces (e.g., StyleGAN).<br>
+        • Image-to-image translation — converting sketches to photos.<br>
+        • Super-resolution — enhancing image resolution.<br>
+        • Data augmentation for training other models.<br>
+        • Artistic style transfer — applying painting styles to photos.
+      </td>
+    </tr>
+    <tr>
+      <td>VAEs</td>
+      <td>Variational Autoencoders (VAEs) are generative models that learn a probabilistic latent representation of data. They encode inputs into a latent distribution and decode samples from it to reconstruct data.</td>
+      <td>Used for data generation, dimensionality reduction, anomaly detection, and representation learning.</td>
+      <td>
+        • Better than GANs when you need stable training and a well-defined latent space.<br>
+        • Better than Diffusion Models for faster sampling.<br>
+        • Better than Normalizing Flows when exact likelihood is less important and reconstruction matters.<br>
+        • Preferred over Energy-Based Models for explicit latent representation and reconstruction.
+      </td>
+      <td>
+        • When highly realistic images are required — GANs or Diffusion Models may be better.<br>
+        • When exact likelihood estimation is needed — Normalizing Flows are preferable.<br>
+        • For tasks requiring sharp high-resolution outputs, VAEs tend to produce blurrier results.
+      </td>
+      <td>
+        • Image generation — generating handwritten digits or faces.<br>
+        • Anomaly detection — detecting unusual medical images.<br>
+        • Representation learning — compressing data for downstream tasks.<br>
+        • Data augmentation — generating new synthetic samples for training classifiers.
+      </td>
+    </tr>
+    <tr>
+      <td>Normalizing Flows</td>
+      <td>Normalizing Flows are generative models that transform a simple probability distribution (like Gaussian) into a complex data distribution using a sequence of invertible, differentiable transformations, allowing exact likelihood computation.</td>
+      <td>Used for density estimation, generative modeling, and likelihood-based tasks where exact probability calculation is important.</td>
+      <td>
+        • Better than GANs or Diffusion Models when exact likelihood evaluation is needed.<br>
+        • Better than VAEs if you require flexible distributions without approximate posterior sampling.<br>
+        • Preferred over Energy-Based Models for tractable training and exact likelihoods.
+      </td>
+      <td>
+        • For high-resolution image generation where GANs or Diffusion Models produce sharper results.<br>
+        • When simplicity or training stability is desired — Normalizing Flows can be complex to implement.<br>
+        • For tasks focused on latent representations rather than exact density estimation — VAEs may be better.
+      </td>
+      <td>
+        • Density estimation of molecular structures.<br>
+        • Anomaly detection in tabular or sensor data via likelihood evaluation.<br>
+        • Generating synthetic tabular data for simulations.<br>
+        • Probabilistic forecasting in finance or weather modeling.
+      </td>
+    </tr>
+    <tr>
+      <td>Diffusion Models</td>
+      <td>Diffusion Models are generative models that iteratively transform noise into data through a reverse diffusion process, learning to generate complex data distributions step by step.</td>
+      <td>Used for high-quality image, audio, and video generation, especially where photo-realism and diversity are important.</td>
+      <td>
+        • Better than GANs when you need stable training and high-fidelity outputs.<br>
+        • Better than VAEs for sharp, detailed images.<br>
+        • Better than Normalizing Flows when exact likelihood is not required but sample quality matters.<br>
+        • Preferred over Energy-Based Models for faster and more reliable generation of realistic samples.
+      </td>
+      <td>
+        • When fast sampling is required — Diffusion Models are slower than GANs or VAEs.<br>
+        • When computational resources are limited — training is heavy.<br>
+        • For tasks needing explicit latent representations — VAEs may be better.
+      </td>
+      <td>
+        • Image generation — generating realistic human faces or artwork.<br>
+        • Text-to-image generation — creating images from captions.<br>
+        • Audio generation — producing realistic speech or music.<br>
+        • Video synthesis — generating short video clips from noise or conditional inputs.
+      </td>
+    </tr>
+    <tr>
+      <td>EBMs</td>
+      <td>Energy-Based Models (EBMs) are generative models that assign an energy score to each configuration of variables, where lower energy means higher probability. They learn to model complex data distributions indirectly via this energy function.</td>
+      <td>Used for unsupervised learning, density estimation, and generative tasks, especially when modeling complex dependencies is needed.</td>
+      <td>
+        • Better than GANs or Diffusion Models when you want a flexible probabilistic model without requiring adversarial training.<br>
+        • Better than Normalizing Flows if exact invertibility is not needed but flexible modeling is.<br>
+        • Preferred over VAEs when you need to capture multi-modal distributions with complex correlations.
+      </td>
+      <td>
+        • When sampling efficiency is critical — EBMs often require MCMC or iterative sampling.<br>
+        • For high-resolution image generation — GANs or Diffusion Models produce sharper outputs.<br>
+        • When interpretability or explicit latent space is needed — VAEs or Normalizing Flows are better.
+      </td>
+      <td>
+        • Image generation — modeling complex image distributions.<br>
+        • Anomaly detection — detecting out-of-distribution samples by energy scores.<br>
+        • Molecular design — generating valid chemical structures.<br>
+        • Probabilistic modeling — learning distributions of physical systems or sensor data.
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+<h3>Code 1 (StyleGAN [GANs])</h3>
+<pre><code class="language-python">
+import numpy as np
+import matplotlib.pyplot as plt
+
+# --- 1. Define latent vector (z) ---
+latent_dim = 5
+z = np.random.randn(latent_dim)  # random noise vector
+
+# --- 2. Define a simple "style" mapping ---
+def style_mapping(z):
+    # Simulate the mapping network of StyleGAN
+    return np.tanh(z * np.random.randn(*z.shape))
+
+w = style_mapping(z)
+
+# --- 3. Simple generator ---
+def generator(w):
+    # Simulate style-modulated generation
+    img = np.zeros((16, 16))
+    for i in range(16):
+        for j in range(16):
+            img[i, j] = np.sin(i * w[0] + j * w[1]) + np.cos(i * w[2] - j * w[3])
+    img = (img - img.min()) / (img.max() - img.min())  # normalize 0-1
+    return img
+
+generated_image = generator(w)
+
+# --- 4. Show image ---
+plt.imshow(generated_image, cmap='gray')
+plt.title("Generated Image (StyleGAN Concept)")
+plt.axis('off')
+plt.show()
+</code></pre>
+
+<h3>Code 2 (DDPM [Diffusion Models])</h3>
+<pre><code class="language-python">
+import numpy as np
+import matplotlib.pyplot as plt
+
+# --- 1. Original image (simple 8x8 square) ---
+true_image = np.zeros((8, 8))
+true_image[2:6, 2:6] = 1.0  # white square
+
+# --- 2. Forward diffusion (add noise step by step) ---
+timesteps = 5
+noisy_images = []
+image = true_image.copy()
+for t in range(timesteps):
+    noise = np.random.randn(*image.shape) * (t + 1) / timesteps
+    noisy_image = image + noise
+    noisy_images.append(np.clip(noisy_image, 0, 1))
+
+# --- 3. Reverse denoising process (simulate DDPM neural network) ---
+denoised = noisy_images[-1].copy()
+for t in reversed(range(timesteps)):
+    # simple denoising step towards original image
+    denoised = denoised - (denoised - true_image) * 0.2
+    denoised = np.clip(denoised, 0, 1)
+
+# --- 4. Show results ---
+fig, axes = plt.subplots(1, 3, figsize=(9, 3))
+axes[0].imshow(true_image, cmap='gray')
+axes[0].set_title("Original Image")
+axes[1].imshow(noisy_images[-1], cmap='gray')
+axes[1].set_title("Noised Image")
+axes[2].imshow(denoised, cmap='gray')
+axes[2].set_title("Denoised (DDPM)")
+plt.show()
+</code></pre>
+
+<h3>Code 3 (Stable Diffusion [Diffusion Models])</h3>
+<pre><code class="language-python">
+import numpy as np
+import matplotlib.pyplot as plt
+
+# --- 1. Create a simple image (the "true" data") ---
+true_image = np.zeros((28, 28))
+true_image[10:18, 10:18] = 1.0  # simple white square
+
+# --- 2. Forward diffusion process (add noise step by step) ---
+timesteps = 10
+noisy_images = []
+
+image = true_image.copy()
+for t in range(timesteps):
+    noise = np.random.randn(*image.shape) * (t + 1) / timesteps
+    noisy_image = image + noise
+    noisy_images.append(np.clip(noisy_image, 0, 1))
+
+# --- 3. Reverse denoising process (simulate the model learning to remove noise) ---
+# In real Stable Diffusion, this is done by a neural network (U-Net + text encoder).
+denoised = noisy_images[-1].copy()
+for t in reversed(range(timesteps)):
+    denoised = denoised - (denoised - true_image) * 0.2  # "denoise" toward target
+    denoised = np.clip(denoised, 0, 1)
+
+# --- 4. Show results ---
+fig, axes = plt.subplots(1, 3, figsize=(9, 3))
+axes[0].imshow(true_image, cmap='gray')
+axes[0].set_title("Original Image")
+
+axes[1].imshow(noisy_images[-1], cmap='gray')
+axes[1].set_title("Noised (Forward Diffusion)")
+
+axes[2].imshow(denoised, cmap='gray')
+axes[2].set_title("Reconstructed (Reverse Diffusion)")
+
+plt.show()
+</code></pre>
+</body>
+</html>

@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ensemble Learning</title>
+</head>
+<body>
+<h3><a href="index.html">home</a></h3>
+<h1 style="text-align: center;"><strong>Ensemble Learning</strong></h1>
+</br>
+<h2>What is Ensemble Learning?</h2>
+<p>
+  <strong>Ensemble Learning</strong> is a machine learning approach that combines multiple models to improve overall performance. By aggregating predictions from several models, such as through voting or averaging, ensemble methods often achieve higher accuracy and robustness than individual models.
+</p>
+<h2>Types of Ensemble Learning</h2>
+<img src="images/7.png" width="1100" height="600" alt="Ensemble Learning image">
+<table border="1" cellspacing="0" cellpadding="5">
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>What it is</th>
+      <th>When it is used</th>
+      <th>When it is preferred over other types</th>
+      <th>When it is not recommended</th>
+      <th>Examples of projects that is better use it incide him</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Bagging</td>
+      <td>Bagging (Bootstrap Aggregating) is an Ensemble Learning method that builds multiple models (usually of the same type) on different bootstrap samples of the training data and averages their predictions (for regression) or uses majority voting (for classification).</td>
+      <td>Used to reduce variance and prevent overfitting, especially for unstable models like decision trees.</td>
+      <td>
+        • Better than Boosting when you want parallel training and faster model building.<br>
+        • Better than Stacking/Voting for simpler implementation with a single model type.<br>
+        • Better than Random Forests if you want bagging with models other than trees.
+      </td>
+      <td>
+        • When the base model is already stable (e.g., linear models).<br>
+        • When you need to reduce bias rather than variance — Boosting is better.<br>
+        • When interpretability of the ensemble is important.
+      </td>
+      <td>
+        • Classification of customer churn using decision trees with bagging.<br>
+        • Regression for house price prediction using bagged trees.<br>
+        • Medical diagnosis where variance reduction improves model robustness.
+      </td>
+    </tr>
+    <tr>
+      <td>Boosting</td>
+      <td>Boosting is an Ensemble Learning technique that builds models sequentially, where each new model focuses on correcting the errors of the previous ones. Common algorithms include AdaBoost and Gradient Boosting Machines.</td>
+      <td>Used to reduce bias and improve predictive accuracy, especially for weak learners like shallow decision trees.</td>
+      <td>
+        • Better than Bagging when you want to reduce bias rather than just variance.<br>
+        • Better than Voting/Stacking for sequential error correction rather than combining independent models.<br>
+        • Better than Random Forests when higher accuracy is needed and overfitting can be controlled.
+      </td>
+      <td>
+        • When the dataset is very noisy, as boosting can overfit noise.<br>
+        • When training speed is critical — boosting is sequential and slower than bagging.<br>
+        • When interpretability is crucial, as ensembles are harder to interpret.
+      </td>
+      <td>
+        • Credit scoring — predicting loan defaults.<br>
+        • Customer churn prediction in telecom.<br>
+        • Fraud detection in financial transactions.<br>
+        • Predicting house prices with gradient boosted trees.
+      </td>
+    </tr>
+    <tr>
+      <td>Stacking</td>
+      <td>Stacking is an Ensemble Learning method that combines predictions from multiple different base models using a meta-model (often called a blender) to make the final prediction.</td>
+      <td>Used to leverage the strengths of diverse models and improve overall predictive performance.</td>
+      <td>
+        • Better than Bagging/Boosting when you want to combine different types of models rather than just the same base model.<br>
+        • Better than Voting because the meta-model can learn how to weight predictions intelligently rather than using fixed rules.<br>
+        • Useful when individual models have complementary strengths.
+      </td>
+      <td>
+        • When the dataset is small, stacking can overfit.<br>
+        • When simplicity or interpretability is important — it adds complexity.<br>
+        • When computational resources are limited — requires training multiple models plus the meta-model.
+      </td>
+      <td>
+        • Kaggle competitions — combining XGBoost, Random Forest, and Neural Networks for better performance.<br>
+        • Predicting customer churn using multiple classifiers combined through stacking.<br>
+        • Medical diagnosis — combining different models trained on different feature sets.
+      </td>
+    </tr>
+    <tr>
+      <td>Voting</td>
+      <td>Voting is an Ensemble Learning method that combines predictions from multiple models by taking a majority vote (for classification) or averaging (for regression).</td>
+      <td>Used to improve predictive performance by combining different models, especially when no single model dominates.</td>
+      <td>
+        • Better than Bagging when you want to combine different types of models, not just bootstrap samples of the same model.<br>
+        • Simpler alternative to Stacking when a meta-model is unnecessary.<br>
+        • Faster and easier than Boosting when sequential error correction is not needed.
+      </td>
+      <td>
+        • When dataset is small — may not provide significant improvement.<br>
+        • When high accuracy is critical — stacking or boosting may outperform simple voting.<br>
+        • When models are highly correlated — voting provides limited benefit.
+      </td>
+      <td>
+        • Ensemble of classifiers for sentiment analysis (e.g., combining Logistic Regression, SVM, and Random Forest).<br>
+        • Predicting loan default by averaging predictions from multiple models.<br>
+        • Image classification — majority vote among CNN, ResNet, and EfficientNet models.
+      </td>
+    </tr>
+    <tr>
+      <td>Random Forests</td>
+      <td>Random Forests are an Ensemble Learning method that builds multiple decision trees using bagging and random feature selection, then aggregates their predictions (majority vote for classification, average for regression).</td>
+      <td>Used to reduce variance, improve accuracy, and handle high-dimensional data with many features.</td>
+      <td>
+        • Better than Bagging alone because it adds feature randomness, reducing correlation between trees.<br>
+        • Simpler and more interpretable than Boosting while still providing strong performance.<br>
+        • Faster to train than Stacking and easier than Voting if using multiple model types.
+      </td>
+      <td>
+        • When dataset is very small — individual trees may overfit.<br>
+        • When extremely high accuracy is needed — Boosting often outperforms.<br>
+        • When model interpretability is critical — the ensemble of many trees is harder to interpret.
+      </td>
+      <td>
+        • Predicting customer churn using structured tabular data.<br>
+        • Credit scoring — classifying loan applicants as low/high risk.<br>
+        • Fraud detection in financial transactions.<br>
+        • Medical diagnosis — predicting disease presence from patient features.
+      </td>
+    </tr>
+    <tr>
+      <td>GBMs</td>
+      <td>Gradient Boosting Machines (GBMs) are an Ensemble Learning method that builds models sequentially, where each new model tries to correct the residual errors of the previous ensemble using gradient descent optimization. Examples include XGBoost, LightGBM, and CatBoost.</td>
+      <td>Used to achieve high predictive accuracy, especially on structured/tabular data, by combining many weak learners (usually shallow trees).</td>
+      <td>
+        • Better than Bagging/Random Forests when you want to reduce bias and improve accuracy rather than only reduce variance.<br>
+        • Better than Voting/Stacking when sequential error correction is more effective than simple combination.<br>
+        • Often preferred over Boosting if using optimized implementations like XGBoost or LightGBM for speed and regularization.
+      </td>
+      <td>
+        • When the dataset is very noisy, GBMs may overfit.<br>
+        • When training speed is critical — sequential building is slower than Bagging.<br>
+        • When interpretability is essential — ensembles of trees are complex to interpret.
+      </td>
+      <td>
+        • Credit scoring — predicting loan default probability.<br>
+        • Customer churn prediction in telecom or subscription services.<br>
+        • Fraud detection in financial transactions.<br>
+        • Predicting house prices with tabular features.<br>
+        • Sales forecasting using historical structured data.
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+<h2>Code 1 (XGBoost [Boosting])</h2>
+<pre><code>
+# Install XGBoost if not installed
+# !pip install xgboost scikit-learn
+
+import xgboost as xgb
+from sklearn.datasets import load_iris
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import accuracy_score
+
+# --- 1. Load dataset ---
+X, y = load_iris(return_X_y=True)
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42)
+
+# --- 2. Create XGBoost classifier ---
+model = xgb.XGBClassifier(
+    n_estimators=50,    # number of trees
+    learning_rate=0.1,  # step size shrinkage
+    max_depth=3,
+    random_state=42
+)
+
+# --- 3. Train model ---
+model.fit(X_train, y_train)
+
+# --- 4. Predict and evaluate ---
+y_pred = model.predict(X_test)
+accuracy = accuracy_score(y_test, y_pred)
+
+print("Predictions:", y_pred)
+print("Accuracy:", accuracy)
+</code></pre>
+
+<h2>Code 2 (LightGBM [Boosting])</h2>
+<pre><code>
+# Install LightGBM if not installed
+# !pip install lightgbm scikit-learn
+
+import lightgbm as lgb
+from sklearn.datasets import load_iris
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import accuracy_score
+
+# --- 1. Load dataset ---
+X, y = load_iris(return_X_y=True)
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42)
+
+# --- 2. Create LightGBM dataset objects ---
+train_data = lgb.Dataset(X_train, label=y_train)
+test_data = lgb.Dataset(X_test, label=y_test, reference=train_data)
+
+# --- 3. Set parameters ---
+params = {
+    'objective': 'multiclass',
+    'num_class': 3,
+    'learning_rate': 0.1,
+    'num_leaves': 31,
+    'metric': 'multi_logloss',
+    'seed': 42
+}
+
+# --- 4. Train LightGBM model ---
+model = lgb.train(
+    params,
+    train_data,
+    num_boost_round=50,
+    valid_sets=[test_data],
+    verbose_eval=False
+)
+
+# --- 5. Predict and evaluate ---
+y_pred = model.predict(X_test)
+y_pred_classes = [np.argmax(row) for row in y_pred]
+
+accuracy = accuracy_score(y_test, y_pred_classes)
+print("Predictions:", y_pred_classes)
+print("Accuracy:", accuracy)
+</code></pre>
+
+<h2>Code 3 (Random Forest [Bagging])</h2>
+<pre><code>
+# Install scikit-learn if not installed
+# !pip install scikit-learn
+
+from sklearn.datasets import load_iris
+from sklearn.model_selection import train_test_split
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.metrics import accuracy_score
+
+# --- 1. Load dataset ---
+X, y = load_iris(return_X_y=True)
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42)
+
+# --- 2. Create Random Forest classifier ---
+model = RandomForestClassifier(
+    n_estimators=50,   # number of trees
+    max_depth=3,
+    random_state=42
+)
+
+# --- 3. Train model ---
+model.fit(X_train, y_train)
+
+# --- 4. Predict and evaluate ---
+y_pred = model.predict(X_test)
+accuracy = accuracy_score(y_test, y_pred)
+
+print("Predictions:", y_pred)
+print("Accuracy:", accuracy)
+</code></pre>
+</body>
+</html>

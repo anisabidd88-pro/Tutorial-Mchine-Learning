@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Supervised Learning</title>
+</head>
+<body>
+<h3><a href="index.html">home</a></h3>
+<h1 style="text-align: center;"><strong>Supervised Learning</strong></h1>
+</br>
+<h2>What is Supervised Learning?</h2>
+<p>
+  <strong>Supervised Learning</strong> is a type of machine learning where a model is trained using labeled data — meaning each training example has an input and a known correct output. The goal is for the model to learn the relationship between inputs and outputs so it can make accurate predictions on new, unseen data.
+</p>
+<h2>Types of Supervised Learning</h2>
+<img src="images/1.png" width="1500" height="900" alt="Supervised Learning image">
+<table border="1" cellspacing="0" cellpadding="5">
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>What it is</th>
+      <th>When it is used</th>
+      <th>When it is preferred over other types</th>
+      <th>When it is not recommended</th>
+      <th>Examples of projects that is better use it incide him</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Regression</td>
+      <td>Regression is used to predict continuous numerical values (e.g., prices, temperatures, age, demand). It learns a function that maps input variables XXX to a real-valued output yyy.</td>
+      <td>
+        • When the target variable is a real number, not a category or rank.<br>
+        • When you want to estimate quantities or model trends.<br>
+        • Used in problems like predicting sales, temperature, income, or house prices.
+      </td>
+      <td>
+        • Better than Classification when the output is continuous (not discrete labels).<br>
+        • Better than Ranking when you need exact numeric predictions, not just ordering.<br>
+        • Better than Forecasting / Time-Series if your data is not time-dependent (i.e., order doesn’t matter).<br>
+        • Better than Structured Prediction when you only need a single numeric output, not complex structures (like sequences or trees).
+      </td>
+      <td>
+        • When the target variable is categorical → use Classification.<br>
+        • When there is strong time dependency → use Forecasting or Time-Series models.<br>
+        • When output involves relations between multiple variables (like sequences, labels, or spatial data) → use Structured Prediction.<br>
+        • When data is nonlinear and high-dimensional → regression may underperform unless you use nonlinear models (like SVR, neural networks).
+      </td>
+      <td>
+        • Predicting house prices based on size, location, and age.<br>
+        • Estimating future sales from advertising and economic data (simple regression).<br>
+        • Predicting student test scores from study hours and attendance.
+      </td>
+    </tr>
+    <tr>
+      <td>Classification</td>
+      <td>Classification predicts discrete categories or classes (e.g., spam/not spam, disease/healthy). The model learns to assign each input to one of several predefined classes.</td>
+      <td>
+        • When the target variable is categorical, not continuous.<br>
+        • When the goal is to decide or label something (yes/no, type A/B/C).<br>
+        • Used for diagnosis, detection, recognition, and categorization tasks.
+      </td>
+      <td>
+        • Better than Regression when the output is a class label, not a numeric value.<br>
+        • Better than Ranking when order between outputs doesn’t matter — you just need correct class assignment.<br>
+        • Better than Forecasting/Time-Series when there’s no time dependency.<br>
+        • Better than Structured Prediction when each sample has a single independent label (not sequences or structures).
+      </td>
+      <td>
+        • When the output is a real number → use Regression.<br>
+        • When data points are time-ordered or sequential → use Forecasting/Time-Series.<br>
+        • When outputs are structured or dependent (like sentence tagging or image segmentation) → use Structured Prediction.<br>
+        • When you need ranking or scoring instead of labeling → use Ranking.
+      </td>
+      <td>
+        • Email spam detection (spam / not spam).<br>
+        • Medical diagnosis (disease type classification).<br>
+        • Image recognition (cat, dog, car, etc.).<br>
+        • Sentiment analysis (positive / neutral / negative).
+      </td>
+    </tr>
+    <tr>
+      <td>Ranking</td>
+      <td>Ranking predicts the relative order or priority of items instead of exact values or classes. It learns how to sort items based on relevance, preference, or importance.</td>
+      <td>
+        • When the goal is to order or prioritize items (not classify or predict numeric values).<br>
+        • Common in search engines, recommendation systems, and information retrieval.<br>
+        • Used when relative comparison matters more than absolute prediction.
+      </td>
+      <td>
+        • Better than Classification when you need order (e.g., rank 1 > rank 2), not just labels.<br>
+        • Better than Regression when the relative ranking is more important than the exact numeric value.<br>
+        • Better than Forecasting/Time-Series when there is no temporal component — just ordering among items.<br>
+        • Better than Structured Prediction when outputs are independent rankings, not interdependent structures.
+      </td>
+      <td>
+        • When outputs are categories without order → use Classification.<br>
+        • When outputs are continuous numeric values → use Regression.<br>
+        • When data is time-based or sequential → use Forecasting/Time-Series.<br>
+        • When outputs involve complex structures or dependencies (like sequences or graphs) → use Structured Prediction.
+      </td>
+      <td>
+        • Search engine results ranking (Google ranking pages by relevance).<br>
+        • Recommendation systems (ranking movies or products for a user).<br>
+        • Job candidate ranking by fit score.<br>
+        • Ad ranking by predicted click-through rate (CTR).
+      </td>
+    </tr>
+    <tr>
+      <td>Forecasting</td>
+      <td>Forecasting predicts future values based on historical data. It focuses on estimating upcoming trends, demands, or events over time.</td>
+      <td>
+        • When the target depends on time progression.<br>
+        • When you need to predict the future using past observations.<br>
+        • Common in finance, sales, weather, and resource planning.
+      </td>
+      <td>
+        • Better than Regression when temporal order matters — i.e., past influences future.<br>
+        • Better than Classification when outputs are continuous future values.<br>
+        • Better than Ranking because it models time dependencies, not item priority.<br>
+        • Better than Time-Series Prediction when you need longer-term or multi-step forecasts rather than short-term next-value prediction.<br>
+        • Better than Structured Prediction when outputs are independent future values, not complex structures.
+      </td>
+      <td>
+        • When data has no time dependency → use Regression or Classification.<br>
+        • When you only need one next-step prediction → use Time-Series Prediction.<br>
+        • When predicting categories or ranks instead of numeric time-based values.<br>
+        • When data is too irregular or random — forecasting becomes unreliable.
+      </td>
+      <td>
+        • Stock price forecasting for next week or month.<br>
+        • Electricity demand forecasting for power grid management.<br>
+        • Weather forecasting (temperature, rainfall, etc.).<br>
+        • Sales forecasting to plan inventory or marketing.
+      </td>
+    </tr>
+    <tr>
+      <td>Time-Series Prediction</td>
+      <td>Time-Series Prediction predicts the next value(s) in a sequence based on past time-dependent data. It focuses on short-term or step-by-step future estimation.</td>
+      <td>
+        • When data is sequential and ordered by time.<br>
+        • When you need to predict the next point or a few future steps in a timeline.<br>
+        • Common in real-time systems, sensors, finance, and monitoring.
+      </td>
+      <td>
+        • Better than Regression because it explicitly models temporal correlations.<br>
+        • Better than Forecasting when you need immediate next-step or short-term predictions instead of long-term trends.<br>
+        • Better than Classification or Ranking when predicting continuous or sequential data, not discrete outputs.<br>
+        • Better than Structured Prediction when the structure is simply a time sequence, not a complex relationship.
+      </td>
+      <td>
+        • When data points are independent (no time relation) → use Regression or Classification.<br>
+        • When predicting categories or priorities → use Classification or Ranking.<br>
+        • When modeling complex dependencies beyond time (like multiple related sequences) → use Structured Prediction.<br>
+        • When goal is long-term forecasting rather than next-step prediction.
+      </td>
+      <td>
+        • Predicting tomorrow’s temperature from recent weather data.<br>
+        • Next-hour electricity demand prediction.<br>
+        • Stock price next-minute prediction.<br>
+        • Predicting machine sensor readings for anomaly detection.
+      </td>
+    </tr>
+    <tr>
+      <td>Structured Prediction</td>
+      <td>Structured Prediction predicts complex outputs with internal structure, such as sequences, trees, graphs, or sets of interdependent labels — not just single values or classes.</td>
+      <td>
+        • When the output has multiple related parts or dependencies.<br>
+        • When predicting structured data like sentences, images, or networks.<br>
+        • Common in NLP, computer vision, and bioinformatics.
+      </td>
+      <td>
+        • Better than Classification when output is multiple dependent labels (e.g., part-of-speech tags).<br>
+        • Better than Regression when you need to predict structured objects, not single numbers.<br>
+        • Better than Ranking when items are interdependent, not just ordered.<br>
+        • Better than Forecasting / Time-Series when relationships are non-temporal (e.g., spatial or hierarchical).<br>
+        • Best when you must capture correlations between output variables.
+      </td>
+      <td>
+        • When outputs are independent single values or labels → use Classification or Regression.<br>
+        • When data is purely time-based → use Forecasting / Time-Series Prediction.<br>
+        • When structure is simple or irrelevant — structured models add unnecessary complexity.<br>
+        • When you have small data — structured models often need lots of examples.
+      </td>
+      <td>
+        • Named Entity Recognition (NER) – labeling words in a sentence as person, place, etc.<br>
+        • Image segmentation – assigning a class to every pixel.<br>
+        • Speech recognition – converting audio to text sequences.<br>
+        • Dependency parsing – building a syntactic tree for a sentence.
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+<h2>Code 1 (Binary Classification)</h2>
+<pre><code>
+import numpy as np
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LogisticRegression
+from sklearn.metrics import accuracy_score
+
+X = np.array([
+    [1, 2],
+    [2, 1],
+    [2, 3],
+    [3, 2],
+    [6, 5],
+    [7, 7],
+    [8, 6],
+    [7, 5]
+])
+y = np.array([0, 0, 0, 0, 1, 1, 1, 1])
+
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.25, random_state=42)
+
+model = LogisticRegression()
+model.fit(X_train, y_train)
+
+y_pred = model.predict(X_test)
+accuracy = accuracy_score(y_test, y_pred)
+print("Predicted labels:", y_pred)
+print("Accuracy:", accuracy)
+</code></pre>
+
+<h2>Code 2 (Multi-class Classification)</h2>
+<pre><code>
+import numpy as np
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LogisticRegression
+from sklearn.metrics import accuracy_score
+
+X = np.array([
+    [1, 2],
+    [2, 1],
+    [2, 3],
+    [3, 2],
+    [6, 5],
+    [7, 7],
+    [8, 6],
+    [7, 5],
+    [0, 1],
+    [1, 0]
+])
+y = np.array([0, 0, 0, 0, 1, 1, 1, 1, 2, 2])
+
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.25, random_state=42)
+
+model = LogisticRegression(multi_class='multinomial', solver='lbfgs')
+model.fit(X_train, y_train)
+
+y_pred = model.predict(X_test)
+accuracy = accuracy_score(y_test, y_pred)
+print("Predicted labels:", y_pred)
+print("Accuracy:", accuracy)
+</code></pre>
+
+<h2>Code 3 (Linear Regression)</h2>
+<pre><code>
+import numpy as np
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LinearRegression
+from sklearn.metrics import mean_squared_error
+
+X = np.array([[1], [2], [3], [4], [5], [6]])
+y = np.array([3, 5, 7, 9, 11, 13])
+
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.33, random_state=42)
+
+model = LinearRegression()
+model.fit(X_train, y_train)
+
+y_pred = model.predict(X_test)
+mse = mean_squared_error(y_test, y_pred)
+print("Predicted values:", y_pred)
+print("Mean Squared Error:", mse)
+print("Learned coefficients:", model.coef_, "Intercept:", model.intercept_)
+</code></pre>
+
+<h2>Code 4 (Univariate Forecasting)</h2>
+<pre><code>
+import numpy as np
+from sklearn.linear_model import LinearRegression
+import matplotlib.pyplot as plt
+
+t = np.array([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
+y = np.array([2.1, 4.0, 6.1, 8.2, 10.0, 12.1, 14.1, 16.2, 18.0, 20.1])
+
+X = t[:-1].reshape(-1,1)
+y_target = y[1:]
+
+model = LinearRegression()
+model.fit(X, y_target)
+
+y_pred = model.predict(X)
+print("Predicted next values:", y_pred)
+
+plt.plot(t[1:], y_target, label='Actual')
+plt.plot(t[1:], y_pred, label='Predicted', linestyle='--')
+plt.xlabel("Time")
+plt.ylabel("Value")
+plt.title("Univariate Forecasting")
+plt.legend()
+plt.show()
+</code></pre>
+
+<h2>Code 5 (Sequence Labeling)</h2>
+<pre><code>
+import torch
+import torch.nn as nn
+import torch.optim as optim
+
+X = torch.tensor([
+    [1, 2, 3],
+    [4, 5, 6]
+], dtype=torch.long)
+
+y = torch.tensor([
+    [0, 1, 0],
+    [1, 0, 1]
+], dtype=torch.long)
+
+vocab_size = 10
+embedding_dim = 5
+hidden_dim = 8
+num_classes = 2
+
+class SeqLabelingModel(nn.Module):
+    def __init__(self, vocab_size, embedding_dim, hidden_dim, num_classes):
+        super().__init__()
+        self.embedding = nn.Embedding(vocab_size, embedding_dim)
+        self.lstm = nn.LSTM(embedding_dim, hidden_dim, batch_first=True)
+        self.fc = nn.Linear(hidden_dim, num_classes)
+    
+    def forward(self, x):
+        emb = self.embedding(x)
+        out, _ = self.lstm(emb)
+        out = self.fc(out)
+        return out
+
+model = SeqLabelingModel(vocab_size, embedding_dim, hidden_dim, num_classes)
+criterion = nn.CrossEntropyLoss()
+optimizer = optim.Adam(model.parameters(), lr=0.01)
+
+for epoch in range(200):
+    optimizer.zero_grad()
+    outputs = model(X)
+    loss = criterion(outputs.view(-1, num_classes), y.view(-1))
+    loss.backward()
+    optimizer.step()
+
+with torch.no_grad():
+    outputs = model(X)
+    predicted = torch.argmax(outputs, dim=2)
+    print("Predicted sequence labels:")
+    print(predicted)
+</code></pre>
+</body>
+</html>

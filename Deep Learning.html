@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Deep Learning</title>
+</head>
+<body>
+<h3><a href="index.html">home</a></h3>
+<h1 style="text-align: center;"><strong>Deep Learning</strong></h1>
+</br>
+<h2>What is Deep Learning?</h2>
+<p>
+  <strong>Deep Learning</strong> is a subfield of machine learning that uses neural networks with many layers to model complex patterns in data. It is especially powerful for tasks like image recognition, natural language processing, and speech recognition, where traditional algorithms struggle to achieve high accuracy.
+</p>
+<h2>Types of Deep Learning</h2>
+<img src="images/6.png" width="1300" height="700" alt="Deep Learning image">
+<table border="1" cellspacing="0" cellpadding="5">
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>What it is</th>
+      <th>When it is used</th>
+      <th>When it is preferred over other types</th>
+      <th>When it is not recommended</th>
+      <th>Examples of projects that is better use it incide him</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>CNNs</td>
+      <td>Convolutional Neural Networks (CNNs) are deep learning models designed to process grid-like data, especially images. They use convolutional layers to automatically extract spatial features.</td>
+      <td>Used for tasks where spatial hierarchies are important, such as image recognition, object detection, segmentation, and video frame analysis.</td>
+      <td>
+        • Better than RNNs, LSTMs, GRUs for static spatial data (images) instead of sequences.<br>
+        • Better than Transformers for smaller image datasets where computational cost matters.<br>
+        • Better than Autoencoders/GANs/Diffusion Models when the goal is discriminative tasks (classification/detection) rather than generation.<br>
+        • Better than Graph Neural Networks when data is regular grids rather than graph-structured.
+      </td>
+      <td>
+        • Not suitable for sequential or time-series data — RNNs/LSTMs/Transformers are better.<br>
+        • Not ideal for graph-structured data — use GNNs.<br>
+        • Not optimal for complex generative tasks — GANs or Diffusion Models are better.
+      </td>
+      <td>
+        • Image classification (e.g., MNIST, CIFAR-10).<br>
+        • Object detection (e.g., YOLO, Faster R-CNN).<br>
+        • Medical image segmentation (e.g., detecting tumors in MRI scans).
+      </td>
+    </tr>
+    <tr>
+      <td>RNNs, LSTMs, GRUs</td>
+      <td>RNNs, LSTMs, and GRUs are sequence-processing deep learning models.<br>
+          • RNNs: basic recurrent networks that maintain hidden states to process sequences.<br>
+          • LSTMs: RNNs with input, forget, and output gates to capture long-term dependencies.<br>
+          • GRUs: simplified LSTMs with fewer gates (reset and update), faster to train but also capture long-term dependencies.</td>
+      <td>Used for sequential or time-series data such as text, speech, audio, or sensor readings.</td>
+      <td>
+        • Better than CNNs for data with temporal or sequential dependencies.<br>
+        • Better than Autoencoders for sequence prediction tasks.<br>
+        • Can be better than Transformers for short-to-medium sequences with limited computational resources.<br>
+        • Not used for pure generative image tasks (use GANs or Diffusion Models) or graph-structured data (use GNNs).
+      </td>
+      <td>
+        • For very long sequences, Transformers are more effective.<br>
+        • For non-sequential or grid-structured data, CNNs or GNNs are better.<br>
+        • For large-scale parallel training, Transformers are faster.
+      </td>
+      <td>
+        • Text generation (predicting next words in sentences).<br>
+        • Speech recognition (audio-to-text conversion).<br>
+        • Time-series forecasting (stock prices, weather, sensor data).<br>
+        • Anomaly detection in sequences (equipment monitoring or network traffic).
+      </td>
+    </tr>
+    <tr>
+      <td>Transformers</td>
+      <td>Transformers are deep learning models that rely on self-attention mechanisms to process data, capturing long-range dependencies without recurrence. They are highly parallelizable and excel at sequence modeling.</td>
+      <td>Used for tasks involving sequential data, language, vision, or multimodal inputs. Common in NLP, text generation, translation, and image processing (Vision Transformers).</td>
+      <td>
+        • Better than RNNs/LSTMs/GRUs when handling long sequences, as they avoid vanishing gradient issues.<br>
+        • Better than CNNs for tasks requiring global context rather than local features only.<br>
+        • Better than Autoencoders/GANs/Diffusion Models for discriminative or generative sequence tasks.<br>
+        • Better than Graph Neural Networks for unstructured sequential or token-based data rather than graph-structured data.
+      </td>
+      <td>
+        • When dataset is very small — Transformers require large amounts of data to perform well.<br>
+        • When computational resources are limited — Transformers are resource-intensive.<br>
+        • For purely grid-based tasks with small local context — CNNs may be simpler and faster.
+      </td>
+      <td>
+        • Language modeling and text generation (e.g., GPT, BERT).<br>
+        • Machine translation (e.g., English to French).<br>
+        • Vision Transformers for image classification.<br>
+        • Multimodal tasks like text-to-image generation (e.g., DALL·E).
+      </td>
+    </tr>
+    <tr>
+      <td>Autoencoders</td>
+      <td>Autoencoders are deep learning models that learn to compress data into a latent representation (encoding) and then reconstruct it back (decoding). They are unsupervised/self-supervised and focus on learning efficient data representations.</td>
+      <td>Used for dimensionality reduction, denoising, anomaly detection, and representation learning.</td>
+      <td>
+        • Better than CNNs/RNNs/LSTMs/GRUs/Transformers when the goal is unsupervised feature learning or compression, not sequence modeling or discriminative tasks.<br>
+        • Better than GANs/Diffusion Models for simpler reconstruction tasks rather than generative data creation.<br>
+        • Better than Graph Neural Networks when data is non-graph structured.
+      </td>
+      <td>
+        • Not ideal for complex generative tasks — GANs or Diffusion Models are better.<br>
+        • Not optimal for sequence prediction or classification — use RNNs, Transformers, or CNNs.<br>
+        • Representations may not be discriminative enough for downstream tasks.
+      </td>
+      <td>
+        • Image denoising autoencoder — removing noise from images.<br>
+        • Anomaly detection — detecting unusual patterns in manufacturing sensor data.
+      </td>
+    </tr>
+    <tr>
+      <td>GANs</td>
+      <td>Generative Adversarial Networks (GANs) are deep learning models consisting of two networks — a generator and a discriminator — that compete. The generator creates synthetic data, and the discriminator evaluates its authenticity, enabling realistic data generation.</td>
+      <td>Used for data generation, image synthesis, style transfer, super-resolution, and augmentation.</td>
+      <td>
+        • Better than Autoencoders when you want high-quality realistic generation rather than simple reconstruction.<br>
+        • Better than CNNs/RNNs/LSTMs/Transformers when the task is generative rather than discriminative.<br>
+        • Better than Diffusion Models for faster generation (though diffusion models may produce higher fidelity).<br>
+        • Not directly comparable with Graph Neural Networks unless generating graph data.
+      </td>
+      <td>
+        • When you only need representation learning or compression — Autoencoders suffice.<br>
+        • When dataset is very small — GANs can be unstable.<br>
+        • When stable training is critical — GANs are prone to mode collapse.<br>
+        • For tasks requiring sequence modeling — use RNNs, LSTMs, or Transformers instead.
+      </td>
+      <td>
+        • Image generation — generating human faces (e.g., StyleGAN).<br>
+        • Image-to-image translation — converting sketches to photos.<br>
+        • Super-resolution — enhancing image resolution.
+      </td>
+    </tr>
+    <tr>
+      <td>Diffusion Models</td>
+      <td>Diffusion Models are deep generative models that learn to generate data by reversing a gradual noise process. They start from random noise and iteratively denoise it to produce realistic samples.</td>
+      <td>Used for high-fidelity image generation, text-to-image synthesis, and complex data generation tasks.</td>
+      <td>
+        • Better than GANs for generating more diverse and high-quality samples with fewer mode collapse issues.<br>
+        • Better than Autoencoders for realistic generative tasks rather than reconstruction.<br>
+        • Better than CNNs/RNNs/LSTMs/Transformers for generation rather than discriminative or sequential tasks.<br>
+        • Not directly comparable with Graph Neural Networks, unless generating graph-like data.
+      </td>
+      <td>
+        • When fast generation is required — diffusion models are slower than GANs.<br>
+        • When dataset is small — training can be difficult.<br>
+        • When task is discriminative (classification, detection) — CNNs or Transformers are better.
+      </td>
+      <td>
+        • Text-to-image generation (e.g., DALL·E 2, Stable Diffusion).<br>
+        • High-resolution image synthesis from noise.<br>
+        • Image inpainting — filling missing parts of images.<br>
+        • Video generation or frame interpolation.
+      </td>
+    </tr>
+    <tr>
+      <td>GNNs</td>
+      <td>Graph Neural Networks (GNNs) are deep learning models designed to work with graph-structured data, where nodes represent entities and edges represent relationships. They learn node, edge, or graph-level embeddings by aggregating information from neighbors.</td>
+      <td>Used when data is non-Euclidean or naturally represented as a graph, such as social networks, molecular structures, knowledge graphs, or transportation networks.</td>
+      <td>
+        • Better than CNNs/RNNs/LSTMs/Transformers for relational or graph-structured data.<br>
+        • Better than Autoencoders/GANs/Diffusion Models for tasks that require node classification, link prediction, or graph-level prediction rather than pure generative tasks.
+      </td>
+      <td>
+        • When data is grid-like (images) — CNNs are simpler.<br>
+        • When data is sequential — RNNs, LSTMs, or Transformers are better.<br>
+        • When generative modeling of images/audio is the goal — GANs or Diffusion Models are better.
+      </td>
+      <td>
+        • Node classification in social networks (e.g., predicting user interests).<br>
+        • Molecule property prediction in chemistry or drug discovery.<br>
+        • Link prediction for recommendation systems (e.g., predicting friendships).
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+<h2>Code 1 (ResNet [CNNs])</h2>
+<pre><code>
+import torch
+import torch.nn as nn
+import torchvision
+import torchvision.transforms as transforms
+from sklearn.semi_supervised import LabelPropagation
+from sklearn.metrics import accuracy_score
+import numpy as np
+
+# 1️⃣ Load CIFAR-10 subset
+transform = transforms.Compose([
+    transforms.Resize((32, 32)),
+    transforms.ToTensor()
+])
+
+dataset = torchvision.datasets.CIFAR10(root='./data', train=True, download=True, transform=transform)
+loader = torch.utils.data.DataLoader(dataset, batch_size=64, shuffle=True)
+
+# 2️⃣ Use pretrained ResNet18 as feature extractor
+resnet = torchvision.models.resnet18(weights=torchvision.models.ResNet18_Weights.DEFAULT)
+resnet.fc = nn.Identity()
+resnet.eval()
+
+# 3️⃣ Extract embeddings for first N images
+N = 20
+X_list = []
+y_list = []
+for i, (imgs, labels) in enumerate(loader):
+    with torch.no_grad():
+        embeddings = resnet(imgs).numpy()
+        X_list.append(embeddings)
+        y_list.append(labels.numpy())
+    if len(X_list)*64 >= N:
+        break
+
+X = np.vstack(X_list)[:N]
+y = np.hstack(y_list)[:N]
+
+# 4️⃣ Make some labels unknown (-1)
+y_semi = y.copy()
+y_semi[10:] = -1
+
+# 5️⃣ Apply Label Propagation
+label_prop_model = LabelPropagation()
+label_prop_model.fit(X, y_semi)
+predicted_labels = label_prop_model.transduction_
+
+# 6️⃣ Evaluate
+accuracy = accuracy_score(y, predicted_labels)
+print("Predicted labels:", predicted_labels)
+print("Accuracy:", accuracy)
+</code></pre>
+
+
+<h2>Code 2 (LSTM)</h2>
+<pre><code>
+import torch
+import torch.nn as nn
+from sklearn.semi_supervised import LabelPropagation
+from sklearn.metrics import accuracy_score
+import numpy as np
+
+# 1️⃣ Example sequence dataset
+sequences = [
+    "I love machine learning",
+    "Python is great",
+    "I hate bugs",
+    "Debugging is frustrating",
+    "AI is the future",
+    "I dislike slow computers"
+]
+
+# Labels: 1 = positive, 0 = negative, -1 = unlabeled
+labels = np.array([1, 1, 0, 0, -1, -1])
+
+# 2️⃣ Tokenize sequences
+word_to_idx = {}
+for seq in sequences:
+    for word in seq.lower().split():
+        if word not in word_to_idx:
+            word_to_idx[word] = len(word_to_idx)
+vocab_size = len(word_to_idx)
+max_len = max(len(seq.split()) for seq in sequences)
+
+def encode(seq):
+    tokens = [word_to_idx[w] for w in seq.lower().split()]
+    tokens += [0]*(max_len - len(tokens))
+    return tokens
+
+X_seq = np.array([encode(seq) for seq in sequences])
+
+# 3️⃣ Define simple LSTM encoder
+class LSTMEncoder(nn.Module):
+    def __init__(self, vocab_size, embed_dim=10, hidden_dim=4):
+        super().__init__()
+        self.embedding = nn.Embedding(vocab_size, embed_dim, padding_idx=0)
+        self.lstm = nn.LSTM(embed_dim, hidden_dim, batch_first=True)
+    def forward(self, x):
+        x = self.embedding(x)
+        _, (h_n, _) = self.lstm(x)
+        return h_n.squeeze(0)
+
+model = LSTMEncoder(vocab_size)
+model.eval()
+
+# 4️⃣ Get embeddings
+with torch.no_grad():
+    X_emb = model(torch.tensor(X_seq)).numpy()
+
+# 5️⃣ Apply Label Propagation
+label_prop = LabelPropagation()
+label_prop.fit(X_emb, labels)
+predicted_labels = label_prop.transduction_
+
+# 6️⃣ Evaluate
+true_labels = np.array([1, 1, 0, 0, 1, 0])
+accuracy = accuracy_score(true_labels, predicted_labels)
+print("Predicted labels:", predicted_labels)
+print("Accuracy:", accuracy)
+</code></pre>
+
+
+<h2>Code 3 (GPT [Transformers])</h2>
+<pre><code>
+import numpy as np
+from sklearn.semi_supervised import LabelPropagation
+from sklearn.metrics import accuracy_score
+from transformers import AutoTokenizer, AutoModel
+import torch
+
+# 1️⃣ Example text data
+texts = [
+    "I love machine learning",
+    "Python is great for AI",
+    "I hate bugs in code",
+    "Debugging is frustrating",
+    "AI is the future",
+    "I dislike slow computers"
+]
+
+# Labels: 1 = positive, 0 = negative, -1 = unlabeled
+labels = np.array([1, 1, 0, 0, -1, -1])
+
+# 2️⃣ Load GPT-like model
+tokenizer = AutoTokenizer.from_pretrained("distilgpt2")
+model = AutoModel.from_pretrained("distilgpt2")
+model.eval()
+
+# 3️⃣ Encode text into embeddings
+def get_embedding(text):
+    inputs = tokenizer(text, return_tensors="pt")
+    with torch.no_grad():
+        outputs = model(**inputs)
+    return outputs.last_hidden_state.mean(dim=1).squeeze().numpy()
+
+X = np.array([get_embedding(t) for t in texts])
+
+# 4️⃣ Apply Label Propagation
+label_prop_model = LabelPropagation()
+label_prop_model.fit(X, labels)
+predicted_labels = label_prop_model.transduction_
+
+# 5️⃣ Evaluate
+true_labels = np.array([1, 1, 0, 0, 1, 0])
+accuracy = accuracy_score(true_labels, predicted_labels)
+print("Predicted labels:", predicted_labels)
+print("Accuracy:", accuracy)
+</code></pre>
+
+
+<h2>Code 4 (Stable Diffusion [Diffusion Models])</h2>
+<pre><code>
+import torch
+from diffusers import StableDiffusionPipeline
+from sklearn.semi_supervised import LabelPropagation
+from sklearn.metrics import accuracy_score
+import numpy as np
+from PIL import Image
+
+# 1️⃣ Example text prompts
+texts = [
+    "A cute puppy",
+    "A sunny beach",
+    "A scary monster",
+    "A dark forest",
+    "A happy child",
+    "A rainy city"
+]
+
+# Labels: 1 = positive, 0 = negative, -1 = unlabeled
+labels = np.array([1, 1, 0, 0, -1, -1])
+
+# 2️⃣ Load Stable Diffusion pipeline
+pipe = StableDiffusionPipeline.from_pretrained("runwayml/stable-diffusion-v1-5", torch_dtype=torch.float32)
+pipe.to("cpu")
+text_encoder = pipe.text_encoder
+tokenizer = pipe.tokenizer
+
+# 3️⃣ Encode text prompts into embeddings
+def get_embedding(text):
+    inputs = tokenizer(text, return_tensors="pt")
+    with torch.no_grad():
+        outputs = text_encoder(**inputs)
+    return outputs.last_hidden_state.mean(dim=1).squeeze().numpy()
+
+X = np.array([get_embedding(t) for t in texts])
+
+# 4️⃣ Apply Label Propagation
+label_prop_model = LabelPropagation()
+label_prop_model.fit(X, labels)
+predicted_labels = label_prop_model.transduction_
+
+# 5️⃣ Evaluate
+true_labels = np.array([1, 1, 0, 0, 1, 0])
+accuracy = accuracy_score(true_labels, predicted_labels)
+print("Predicted labels:", predicted_labels)
+print("Accuracy:", accuracy)
+</code></pre>
+</body>
+</html>

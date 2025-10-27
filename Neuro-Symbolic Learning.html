@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Neuro-Symbolic Learning</title>
+</head>
+<body>
+<h3><a href="index.html">home</a></h3>
+<h1 style="text-align: center;"><strong>Neuro-Symbolic Learning</strong></h1>
+</br>
+<h2>What is Neuro-Symbolic Learning?</h2>
+<p>
+  <strong>Neuro-Symbolic Learning</strong> is an approach that combines neural networks with symbolic reasoning. It leverages the pattern recognition power of neural networks and the logic-based reasoning of symbolic AI to solve complex problems that require both learning from data and understanding structured knowledge.
+</p>
+<h2>Types of Neuro-Symbolic Learning</h2>
+<img src="images/10.png" width="1000" height="500" alt="Neuro-Symbolic Learning image">
+<table border="1" cellspacing="0" cellpadding="5">
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>What it is</th>
+      <th>When it is used</th>
+      <th>When it is preferred over other types</th>
+      <th>When it is not recommended</th>
+      <th>Examples of projects that is better use it incide him</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Neural-Symbolic Integration</td>
+      <td>Neural-Symbolic Integration is a Neuro-Symbolic Learning approach that combines neural networks with symbolic reasoning, allowing models to learn from data while incorporating logical rules and knowledge.</td>
+      <td>Used when tasks require both pattern recognition (from neural networks) and structured reasoning (from symbolic logic), e.g., complex decision-making or knowledge-based inference.</td>
+      <td>
+        • Better than Logic Tensor Networks or Differentiable Reasoning when a general integration of neural and symbolic methods is needed.<br>
+        • More flexible than Neural Theorem Provers for combining learned features with symbolic knowledge in various tasks.
+      </td>
+      <td>
+        • When only pattern recognition is needed — pure neural networks (CNNs, Transformers) suffice.<br>
+        • When the domain has little prior knowledge to encode as rules.<br>
+        • When training efficiency is critical — neuro-symbolic models can be slower.
+      </td>
+      <td>
+        • Visual question answering — combining image understanding with logic-based reasoning.<br>
+        • Medical diagnosis support — combining patient data with medical knowledge rules.<br>
+        • Robotics — planning actions using learned perception and symbolic reasoning.<br>
+        • Knowledge graph reasoning — inferring missing relations using data and rules.
+      </td>
+    </tr>
+    <tr>
+      <td>LTNs</td>
+      <td>Logic Tensor Networks (LTNs) are Neuro-Symbolic Learning models that combine first-order logic with tensor-based neural networks, allowing logical constraints to guide learning and inference.</td>
+      <td>Used when tasks require learning from data while strictly enforcing logical rules, e.g., relational reasoning or structured knowledge representation.</td>
+      <td>
+        • Better than Neural-Symbolic Integration when formal logic constraints are critical and need tensor-based optimization.<br>
+        • More structured than Differentiable Reasoning, focusing on logic-grounded neural learning.<br>
+        • More suitable than Neural Theorem Provers for continuous-valued data combined with logic.
+      </td>
+      <td>
+        • When only pattern recognition is needed — simpler neural networks suffice.<br>
+        • When logical rules are not available or hard to define.<br>
+        • For large-scale problems where tensor-based reasoning is computationally heavy.
+      </td>
+      <td>
+        • Knowledge graph completion — inferring missing relationships with logical constraints.<br>
+        • Relational reasoning in AI systems with structured rules.<br>
+        • Semantic web applications — combining ontologies and data-driven learning.<br>
+        • Medical diagnosis — ensuring learned predictions satisfy medical logic rules.
+      </td>
+    </tr>
+    <tr>
+      <td>Differentiable Reasoning</td>
+      <td>Differentiable Reasoning is a Neuro-Symbolic Learning approach that enables logical reasoning to be incorporated into neural networks via differentiable functions, allowing end-to-end gradient-based training.</td>
+      <td>Used when tasks require combining neural learning with reasoning, such as complex decision-making, relational inference, or reasoning over structured data.</td>
+      <td>
+        • Better than Neural-Symbolic Integration when you want fully differentiable reasoning for gradient optimization.<br>
+        • More flexible than Logic Tensor Networks when strict first-order logic is not required.<br>
+        • Easier to train than Neural Theorem Provers because it uses standard gradient descent.
+      </td>
+      <td>
+        • When logical rules are hard to express differentiably.<br>
+        • When reasoning is purely symbolic and interpretability is critical — traditional symbolic methods may be better.<br>
+        • For purely pattern recognition tasks — standard neural networks suffice.
+      </td>
+      <td>
+        • Relational question answering — reasoning over structured knowledge.<br>
+        • Robotics planning — integrating learned perception with reasoning for decision-making.<br>
+        • Knowledge graph reasoning — predicting relations while allowing gradient-based training.<br>
+        • Scientific discovery — inferring structured relations from experimental data.
+      </td>
+    </tr>
+    <tr>
+      <td>NTPs</td>
+      <td>Neural Theorem Provers (NTPs) are Neuro-Symbolic Learning models that combine neural networks with symbolic logic proving, enabling the system to learn representations of facts and rules and perform logical inference.</td>
+      <td>Used when tasks require symbolic reasoning over structured knowledge and learning embeddings for facts and rules simultaneously.</td>
+      <td>
+        • Better than Neural-Symbolic Integration when formal theorem proving is required alongside neural embeddings.<br>
+        • More structured than Differentiable Reasoning for tasks that need discrete logical proofs.<br>
+        • Preferred over Logic Tensor Networks when explicit deductive reasoning rather than just rule-guided learning is the goal.
+      </td>
+      <td>
+        • When only pattern recognition is needed — simpler neural networks suffice.<br>
+        • When rules or knowledge base is incomplete, NTPs may struggle.<br>
+        • For tasks where fast training is required — NTPs can be computationally heavy.
+      </td>
+      <td>
+        • Knowledge base completion — inferring missing facts in large knowledge graphs.<br>
+        • Question answering — reasoning over facts with logical proofs.<br>
+        • Mathematical theorem proving — assisting in formal logic proofs.<br>
+        • Ontology reasoning — verifying consistency and deducing new relationships in semantic data.
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+<h2>Code 1 (DeepProbLog)</h2>
+<pre><code>
+from deepproblog.model import Model
+from deepproblog.network import Network
+from deepproblog.dataset import Dataset
+from deepproblog.query import Query
+import torch
+import torch.nn as nn
+
+class SimpleNN(nn.Module):
+    def __init__(self):
+        super().__init__()
+        self.fc = nn.Linear(2, 10)
+    def forward(self, x):
+        return torch.softmax(self.fc(x), dim=-1)
+
+net = Network(SimpleNN(), "digit_net", batching=True)
+
+model_str = """
+nn(digit_net, [X1,X2], Digit) :: digit(Digit, [X1,X2]).
+sum_correct(A,B,C) :- digit(A,[X1,_]), digit(B,[_,X2]), C is A+B.
+"""
+
+model = Model(model_str)
+model.add_network(net)
+
+X_train = [torch.tensor([1.0,2.0]), torch.tensor([3.0,4.0]), torch.tensor([2.0,5.0])]
+queries = [
+    Query("sum_correct(1,2,3)"),
+    Query("sum_correct(3,4,7)"),
+    Query("sum_correct(2,5,7)")
+]
+dataset = Dataset(list(zip(X_train, queries)))
+
+model.train(dataset, epochs=10)
+
+result = model.solve(Query("sum_correct(A,B,C)"))
+print("Query result:")
+print(result)
+</code></pre>
+
+<h2>Code 2 (NS-CL)</h2>
+<pre><code>
+import torch
+import torch.nn as nn
+import torch.optim as optim
+
+X = torch.tensor([
+    [1, 1],
+    [1, 0],
+    [0, 1],
+    [0, 0]
+], dtype=torch.float)
+
+y = torch.tensor([
+    [1, 1, 1],
+    [1, 0, 0],
+    [0, 1, 0],
+    [0, 0, 0]
+], dtype=torch.float)
+
+class NSCLNet(nn.Module):
+    def __init__(self):
+        super().__init__()
+        self.fc = nn.Linear(2, 3)
+    def forward(self, x):
+        return torch.sigmoid(self.fc(x))
+
+model = NSCLNet()
+criterion = nn.BCELoss()
+optimizer = optim.Adam(model.parameters(), lr=0.01)
+
+for epoch in range(500):
+    optimizer.zero_grad()
+    outputs = model(X)
+    loss = criterion(outputs, y)
+    loss.backward()
+    optimizer.step()
+
+with torch.no_grad():
+    test_X = torch.tensor([
+        [1, 1],
+        [0, 1],
+        [1, 0]
+    ], dtype=torch.float)
+    predictions = model(test_X)
+    print("Predicted concepts/queries probabilities:")
+    print(predictions)
+</code></pre>
+
+<h2>Code 3 (Neural Logic Machines)</h2>
+<pre><code>
+import torch
+import torch.nn as nn
+import torch.optim as optim
+
+X = torch.tensor([
+    [0, 0],
+    [0, 1],
+    [1, 0],
+    [1, 1]
+], dtype=torch.float)
+
+y = torch.tensor([
+    [0],
+    [0],
+    [0],
+    [1]
+], dtype=torch.float)
+
+class NeuralLogicMachine(nn.Module):
+    def __init__(self):
+        super().__init__()
+        self.fc1 = nn.Linear(2, 4)
+        self.fc2 = nn.Linear(4, 1)
+    def forward(self, x):
+        x = torch.relu(self.fc1(x))
+        x = torch.sigmoid(self.fc2(x))
+        return x
+
+model = NeuralLogicMachine()
+criterion = nn.BCELoss()
+optimizer = optim.Adam(model.parameters(), lr=0.01)
+
+for epoch in range(500):
+    optimizer.zero_grad()
+    outputs = model(X)
+    loss = criterion(outputs, y)
+    loss.backward()
+    optimizer.step()
+
+with torch.no_grad():
+    predictions = model(X)
+    print("Predicted AND probabilities:")
+    print(predictions)
+</code></pre>
+
+<h2>Code 4 (Logic Tensor Networks)</h2>
+<pre><code>
+import torch
+import torch.nn as nn
+import torch.optim as optim
+
+entities = torch.tensor([
+    [0.0, 1.0],
+    [1.0, 0.0],
+    [0.5, 0.5]
+])
+
+labels = torch.tensor([
+    [0, 1, 0],
+    [0, 0, 0],
+    [0, 0, 0]
+], dtype=torch.float)
+
+class LTN(nn.Module):
+    def __init__(self, input_dim):
+        super().__init__()
+        self.fc = nn.Sequential(
+            nn.Linear(input_dim*2, 8),
+            nn.ReLU(),
+            nn.Linear(8, 1),
+            nn.Sigmoid()
+        )
+    def forward(self, x, y):
+        xy = torch.cat([x, y], dim=-1)
+        return self.fc(xy)
+
+model = LTN(input_dim=2)
+criterion = nn.BCELoss()
+optimizer = optim.Adam(model.parameters(), lr=0.01)
+
+for epoch in range(500):
+    optimizer.zero_grad()
+    preds = torch.zeros_like(labels)
+    for i in range(len(entities)):
+        for j in range(len(entities)):
+            preds[i,j] = model(entities[i].unsqueeze(0), entities[j].unsqueeze(0))
+    loss = criterion(preds, labels)
+    loss.backward()
+    optimizer.step()
+
+with torch.no_grad():
+    preds = torch.zeros_like(labels)
+    for i in range(len(entities)):
+        for j in range(len(entities)):
+            preds[i,j] = model(entities[i].unsqueeze(0), entities[j].unsqueeze(0))
+    print("Predicted parent(x,y) truth values:")
+    print(preds)
+</code></pre>
+</body>
+</html>

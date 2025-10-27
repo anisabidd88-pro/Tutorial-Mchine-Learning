@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Unsupervised Learning</title>
+</head>
+<body>
+<h3><a href="index.html">home</a></h3>
+<h1 style="text-align: center;"><strong>Unsupervised Learning</strong></h1>
+</br>
+<h2>What is Unsupervised Learning?</h2>
+<p>
+  <strong>Unsupervised Learning</strong> is a branch of machine learning where the data has no labels or predefined outputs. The goal is to find hidden patterns, group similar data points, or discover the underlying structure of the dataset without prior knowledge of the correct answers.
+</p>
+<h2>Types of Unsupervised Learning</h2>
+<img src="images/2.png" width="1000" height="700" alt="Unsupervised Learning image">
+<table border="1" cellspacing="0" cellpadding="5">
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>What it is</th>
+      <th>When it is used</th>
+      <th>When it is preferred over other types</th>
+      <th>When it is not recommended</th>
+      <th>Examples of projects that is better use it incide him</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Clustering</td>
+      <td>Clustering groups data points into clusters so that items in the same group are similar, and items in different groups are dissimilar, without using labeled data.</td>
+      <td>
+        • When you don’t have labels and want to discover hidden patterns or groups.<br>
+        • When you need to segment data by similarity (customers, images, documents, etc.).<br>
+        • Used in exploratory data analysis, pattern discovery, and preprocessing.
+      </td>
+      <td>
+        • Better than Dimensionality Reduction when your goal is grouping data, not simplifying features.<br>
+        • Better than Anomaly Detection when you care about main group structures, not outliers.<br>
+        • Better than Association Rule Learning when you want natural clusters, not rule-based relationships.<br>
+        • Ideal when you need to understand dataset structure or create data segments for later analysis.
+      </td>
+      <td>
+        • When you already have labels → use Supervised Learning instead.<br>
+        • When data has no clear group separation — clustering results become meaningless.<br>
+        • When your main goal is reducing dimensions → use Dimensionality Reduction.<br>
+        • When you want to detect rare abnormal points → use Anomaly Detection.<br>
+        • When relationships are logical or transactional, not based on similarity → use Association Rule Learning.
+      </td>
+      <td>
+        • Customer segmentation for marketing campaigns.<br>
+        • Document clustering by topic.<br>
+        • Image grouping by visual similarity.<br>
+        • Genetic data clustering to find related species.<br>
+        • Social network community detection.
+      </td>
+    </tr>
+    <tr>
+      <td>Dimensionality Reduction</td>
+      <td>Dimensionality Reduction reduces the number of features (variables) in a dataset while keeping the most important information. It simplifies data without losing essential structure.</td>
+      <td>
+        • When data has many correlated or redundant features.<br>
+        • To visualize high-dimensional data (e.g., 1000 features → 2D or 3D).<br>
+        • To speed up training, reduce overfitting, or improve model performance.<br>
+        • Common before clustering, classification, or regression to clean noisy data.
+      </td>
+      <td>
+        • Better than Clustering when your goal is feature simplification, not grouping.<br>
+        • Better than Anomaly Detection when you want to compress data, not find outliers.<br>
+        • Better than Association Rule Learning when features are numerical or continuous, not categorical transactions.<br>
+        • Ideal when you need efficient representation or visual exploration of complex data.
+      </td>
+      <td>
+        • When interpretability of features is critical (reduced dimensions lose meaning).<br>
+        • When dataset is small — reduction may remove useful information.<br>
+        • When features are already optimized or few in number.<br>
+        • When main goal is pattern discovery → use Clustering instead.<br>
+        • When goal is rule-based relationships → use Association Rule Learning.
+      </td>
+      <td>
+        • Image compression or feature extraction (e.g., PCA on image pixels).<br>
+        • Visualization of large datasets in 2D (e.g., t-SNE, UMAP).<br>
+        • Noise reduction in sensor or signal data.<br>
+        • Speeding up model training on text embeddings.
+      </td>
+    </tr>
+    <tr>
+      <td>Anomaly Detection</td>
+      <td>Anomaly Detection identifies unusual or rare data points that deviate significantly from the normal pattern in a dataset. It often works without labeled anomalies.</td>
+      <td>
+        • When the goal is to detect rare events or outliers.<br>
+        • Common in fraud detection, fault detection, cybersecurity, and monitoring.<br>
+        • Useful when anomalies are critical to identify, even if they are very few.
+      </td>
+      <td>
+        • Better than Clustering when the focus is on outliers, not groups.<br>
+        • Better than Dimensionality Reduction when you care about rare events, not feature simplification.<br>
+        • Better than Association Rule Learning when anomalies are not frequent patterns, but deviations.<br>
+        • Ideal when detecting critical errors, attacks, or unusual behavior.
+      </td>
+      <td>
+        • When you want to segment data → use Clustering.<br>
+        • When main goal is feature reduction or visualization → use Dimensionality Reduction.<br>
+        • When you want to find frequent patterns or rules → use Association Rule Learning.<br>
+        • When anomalies are well-labeled and frequent — supervised approaches may be better.
+      </td>
+      <td>
+        • Credit card fraud detection.<br>
+        • Network intrusion detection.<br>
+        • Fault detection in machinery.<br>
+        • Medical anomaly detection (rare diseases or abnormal signals).
+      </td>
+    </tr>
+    <tr>
+      <td>Association Rule Learning</td>
+      <td>Association Rule Learning discovers frequent patterns, correlations, or relationships between items in a dataset. It identifies rules like “if A occurs, B is likely to occur.”</td>
+      <td>
+        • When the goal is to find co-occurrence patterns in data.<br>
+        • Common in market basket analysis, recommendation systems, and transaction analysis.<br>
+        • Useful for discovering hidden relationships between categorical variables.
+      </td>
+      <td>
+        • Better than Clustering when you want specific item relationships, not just groupings.<br>
+        • Better than Dimensionality Reduction when your goal is finding rules, not reducing features.<br>
+        • Better than Anomaly Detection when you want frequent patterns, not rare events.<br>
+        • Ideal when analyzing transactional or categorical datasets for associations and co-occurrences.
+      </td>
+      <td>
+        • When data is continuous numerical → association rules may not apply directly.<br>
+        • When main goal is grouping or segmentation → use Clustering.<br>
+        • When focus is detecting rare events or outliers → use Anomaly Detection.<br>
+        • When goal is feature compression or visualization → use Dimensionality Reduction.
+      </td>
+      <td>
+        • Market basket analysis (e.g., “customers who buy bread also buy butter”).<br>
+        • Product recommendation systems in e-commerce.<br>
+        • Website click pattern analysis (pages often visited together).<br>
+        • Analyzing co-occurrence of symptoms in medical records.<br>
+        • Fraud pattern detection in transactions.
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+<h2>Code 1 (K-Means [Clustering])</h2>
+<pre><code>
+import numpy as np
+
+X = np.array([
+    [1, 2],
+    [1, 4],
+    [1, 0],
+    [10, 2],
+    [10, 4],
+    [10, 0]
+])
+
+k = 2
+max_iters = 10
+
+centroids = X[np.random.choice(len(X), k, replace=False)]
+
+for iteration in range(max_iters):
+    clusters = [[] for _ in range(k)]
+    for point in X:
+        distances = np.linalg.norm(point - centroids, axis=1)
+        cluster_idx = np.argmin(distances)
+        clusters[cluster_idx].append(point)
+    for i in range(k):
+        centroids[i] = np.mean(clusters[i], axis=0)
+
+print("Final centroids:")
+print(centroids)
+
+labels = []
+for point in X:
+    distances = np.linalg.norm(point - centroids, axis=1)
+    cluster_idx = np.argmin(distances)
+    labels.append(cluster_idx)
+
+print("Cluster labels for each point:")
+print(labels)
+</code></pre>
+
+<h2>Code 2 (PCA [Dimensionality Reduction])</h2>
+<pre><code>
+import numpy as np
+
+X = np.array([
+    [2.5, 2.4],
+    [0.5, 0.7],
+    [2.2, 2.9],
+    [1.9, 2.2],
+    [3.1, 3.0],
+    [2.3, 2.7],
+    [2, 1.6],
+    [1, 1.1],
+    [1.5, 1.6],
+    [1.1, 0.9]
+])
+
+X_mean = np.mean(X, axis=0)
+X_centered = X - X_mean
+
+cov_matrix = np.cov(X_centered.T)
+
+eig_vals, eig_vecs = np.linalg.eig(cov_matrix)
+
+sorted_idx = np.argsort(eig_vals)[::-1]
+eig_vecs = eig_vecs[:, sorted_idx]
+eig_vals = eig_vals[sorted_idx]
+
+X_pca = X_centered.dot(eig_vecs[:, 0].reshape(-1,1))
+
+print("Projected data onto 1 principal component:")
+print(X_pca)
+</code></pre>
+
+<h2>Code 3 (Isolation Forest [Anomaly Detection])</h2>
+<pre><code>
+import numpy as np
+from sklearn.ensemble import IsolationForest
+
+X = np.array([
+    [1, 2],
+    [2, 1],
+    [1.5, 1.8],
+    [10, 10],
+    [1.2, 1.9],
+    [2.2, 2.1],
+    [0.8, 0.6],
+    [9, 11]
+])
+
+clf = IsolationForest(contamination=0.2, random_state=42)
+clf.fit(X)
+
+pred = clf.predict(X)
+
+print("Data points predictions (1=normal, -1=anomaly):")
+for point, p in zip(X, pred):
+    print(f"Point {point} => {p}")
+</code></pre>
+
+<h2>Code 4 (Apriori [Association Rule Learning])</h2>
+<pre><code>
+from mlxtend.frequent_patterns import apriori, association_rules
+import pandas as pd
+
+data = pd.DataFrame([
+    [1, 1, 0, 0],
+    [1, 0, 0, 1],
+    [1, 1, 1, 0],
+    [0, 1, 1, 1],
+    [1, 0, 1, 0],
+], columns=['Milk', 'Bread', 'Butter', 'Eggs'])
+
+frequent_itemsets = apriori(data, min_support=0.4, use_colnames=True)
+
+rules = association_rules(frequent_itemsets, metric="confidence", min_threshold=0.7)
+
+print("Frequent itemsets:")
+print(frequent_itemsets)
+
+print("\nAssociation rules:")
+print(rules[['antecedents', 'consequents', 'support', 'confidence', 'lift']])
+</code></pre>
+</body>
+</html>

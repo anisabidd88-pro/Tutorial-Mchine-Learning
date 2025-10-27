@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Federated Learning</title>
+</head>
+<body>
+<h3><a href="index.html">home</a></h3>
+<h1 style="text-align: center;"><strong>Federated Learning</strong></h1>
+</br>
+<h2>What is Federated Learning?</h2>
+<p>
+  <strong>Federated Learning</strong> is a machine learning approach where multiple devices or organizations collaboratively train a model without sharing their raw data. Each participant trains locally and only shares model updates, preserving privacy while benefiting from collective learning.
+</p>
+<h2>Types of Federated Learning</h2>
+<img src="images/11.png" width="1300" height="400" alt="Federated Learning image">
+<table border="1" cellspacing="0" cellpadding="5">
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>What it is</th>
+      <th>When it is used</th>
+      <th>When it is preferred over other types</th>
+      <th>When it is not recommended</th>
+      <th>Examples of projects that is better use it incide him</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>HFL</td>
+      <td>Horizontal Federated Learning (HFL) is a type of Federated Learning where multiple clients (e.g., organizations or devices) have the same feature space but different samples — meaning they collect the same types of data (same columns) for different users (different rows).</td>
+      <td>Used when several entities collect the same kind of data (e.g., same variables/features) about different people or users, and they want to train a shared model without sharing their raw data.</td>
+      <td>
+        • Better than Vertical FL when the features are identical but users differ.<br>
+        • Better than Federated Transfer Learning when datasets are similar and aligned by features.<br>
+        • Preferred over Cross-Device FL for organizations (cross-silo) with stable and powerful servers.
+      </td>
+      <td>
+        • Not suitable when data share the same users but different features → use Vertical FL.<br>
+        • Not ideal when data distributions are highly non-IID (non-identical) across clients.<br>
+        • Avoid when privacy risks in sharing model updates are too high without differential privacy.
+      </td>
+      <td>
+        • Federated hospital diagnosis model: multiple hospitals train a disease prediction model — each hospital has data on different patients but with the same medical tests.<br>
+        • Bank fraud detection: banks collaborate on a shared fraud model without exposing client data.<br>
+        • Retail sales forecasting: different stores train on their own customer data with the same structure.
+      </td>
+    </tr>
+    <tr>
+      <td>VFL</td>
+      <td>Vertical Federated Learning (VFL) is a type of Federated Learning where multiple organizations share the same users (samples) but have different features (columns) about them. Each participant holds complementary information for the same individuals.</td>
+      <td>Used when different organizations have data about the same people but with different attributes, and they want to train a joint model without sharing their raw features.</td>
+      <td>
+        • Better than Horizontal FL when entities have overlapping users but different features.<br>
+        • Better than Federated Transfer Learning when some user IDs overlap significantly between parties.<br>
+        • Preferred in B2B collaborations where companies share customers but not data types.
+      </td>
+      <td>
+        • Not suitable when users differ completely across datasets → use Horizontal FL.<br>
+        • Avoid if there’s no common identifier (like user ID) to match samples.<br>
+        • Not ideal when communication cost is high since feature alignment is complex.
+      </td>
+      <td>
+        • Bank + E-commerce credit scoring: a bank and an e-commerce platform collaborate to build a credit risk model — both share customers but have different features (banking vs. shopping data).<br>
+        • Hospital + Insurance: hospitals provide medical features, insurance companies provide claim data for the same patients.<br>
+        • Telecom + Marketing: telecom company shares usage data, marketing firm shares purchase history for shared customers.
+      </td>
+    </tr>
+    <tr>
+      <td>FTL</td>
+      <td>Federated Transfer Learning (FTL) combines Federated Learning and Transfer Learning. It is used when different organizations have very few overlapping users and different feature spaces, allowing them to transfer knowledge between heterogeneous datasets without sharing raw data.</td>
+      <td>Used when participants have different users and different features, but still want to benefit from each other’s learned knowledge through transfer learning.</td>
+      <td>
+        • Better than Horizontal FL (same features) and Vertical FL (same users) when both users and features differ.<br>
+        • Best choice when data overlap is minimal but there’s semantic similarity between tasks or domains.<br>
+        • Useful for cross-domain collaborations (e.g., finance + healthcare).
+      </td>
+      <td>
+        • Not suitable if datasets are completely unrelated — transfer adds noise.<br>
+        • Avoid when large overlaps exist; simpler Horizontal or Vertical FL would work better.<br>
+        • Not ideal if computational resources are limited, since it needs extra transfer learning adaptation.
+      </td>
+      <td>
+        • Bank + Hospital risk prediction: A hospital has health data; a bank has financial data. They share only a few common users but can jointly train a model predicting financial risk using FTL.<br>
+        • Retail + Telecom user behavior modeling: Different customers and different features, but similar behavior patterns allow knowledge transfer.<br>
+        • Smart city domains: Transport and energy departments use FTL to share insights about efficiency without overlapping users.
+      </td>
+    </tr>
+    <tr>
+      <td>Cross-Silo FL</td>
+      <td>Cross-Silo Federated Learning (Cross-Silo FL) is a type of Federated Learning where a small number of reliable organizations (silos) — like hospitals, banks, or universities — collaborate to train a shared model without exchanging data. Each silo has large, high-quality datasets.</td>
+      <td>Used when data is distributed across a few trusted institutions, each with many samples per silo, and privacy rules prevent direct data sharing.</td>
+      <td>
+        • Better than Cross-Device FL when devices are few but powerful and stable (e.g., servers instead of phones).<br>
+        • Better than Horizontal or Vertical FL when data distribution is institution-based rather than feature- or user-based.<br>
+        • Ideal for enterprise or inter-organizational collaboration (e.g., multiple hospitals training a shared medical model).
+      </td>
+      <td>
+        • Not ideal if there are many small, unreliable devices (then Cross-Device FL fits better).<br>
+        • Not useful when data distributions differ too much between silos (model may not generalize well).<br>
+        • Avoid when institutions cannot synchronize training rounds.
+      </td>
+      <td>
+        • Hospitals collaborating on cancer diagnosis models without sharing patient data.<br>
+        • Banks jointly detecting fraud while keeping client records private.<br>
+        • Universities co-training an academic plagiarism detector across their data silos.
+      </td>
+    </tr>
+    <tr>
+      <td>Cross-Device FL</td>
+      <td>Cross-Device Federated Learning (Cross-Device FL) is a type of Federated Learning where a very large number of small, unreliable devices (like smartphones, IoT sensors, or wearables) collaboratively train a shared model without sending raw data. Each device trains locally and sends only model updates.</td>
+      <td>Used when data is decentralized across millions of edge devices, each having small local datasets that are privacy-sensitive (e.g., text messages, sensor data, user behavior).</td>
+      <td>
+        • Better than Cross-Silo FL when there are many small clients instead of a few large institutions.<br>
+        • Better than Horizontal FL or Vertical FL when devices belong to individuals, not organizations.<br>
+        • Ideal when training personalized or privacy-preserving models at scale (e.g., keyboard prediction, voice recognition).
+      </td>
+      <td>
+        • Not good when devices are often offline, have low computation power, or unstable connections.<br>
+        • Not suited when data must be highly synchronized across clients.<br>
+        • Avoid if training coordination costs outweigh the privacy benefits.
+      </td>
+      <td>
+        • Google Gboard next-word prediction trained across millions of phones.<br>
+        • Smartwatch health monitoring model trained locally on user data.<br>
+        • Federated voice assistants improving speech recognition without uploading recordings.
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+<!-- Code 1: Horizontal Federated Learning -->
+<h3>Code 1 (Horizontal FL)</h3>
+<pre><code class="language-python">
+import numpy as np
+
+# --- Simulate 3 clients with same features, different samples ---
+def make_client_data(seed_shift):
+    np.random.seed(42 + seed_shift)
+    X = np.random.rand(20, 3)  # same features: 3 columns
+    y = (X[:, 0] + X[:, 1] * 2 + X[:, 2] * 0.5 > 1.5).astype(int)
+    return X, y
+
+clients = [make_client_data(i) for i in range(3)]
+
+# --- Initialize global linear model ---
+weights = np.zeros(3)
+bias = 0.0
+lr = 0.1
+
+# --- Horizontal Federated Learning rounds ---
+for round in range(5):
+    local_updates = []
+
+    # Each client trains locally on its own data
+    for X, y in clients:
+        w, b = weights.copy(), bias
+        for i in range(len(X)):
+            x = X[i]
+            y_pred = 1 / (1 + np.exp(-(np.dot(w, x) + b)))  # sigmoid
+            error = y[i] - y_pred
+            w += lr * error * x
+            b += lr * error
+        local_updates.append((w, b))
+
+    # --- Server aggregates updates (Federated Averaging) ---
+    weights = np.mean([w for w, _ in local_updates], axis=0)
+    bias = np.mean([b for _, b in local_updates])
+
+    print(f"Round {round+1} - Global weights: {weights}, bias: {bias:.3f}")
+
+print("\nFinal global model parameters:")
+print("Weights:", weights)
+print("Bias:", bias)
+</code></pre>
+
+<!-- Code 2: Cross-Device Federated Learning -->
+<h3>Code 2 (Cross-Device Federated Learning)</h3>
+<pre><code class="language-python">
+import numpy as np
+
+# --- Simulate small local datasets (3 devices) ---
+data_device1 = np.random.randn(20, 2)
+labels_device1 = (data_device1[:, 0] + data_device1[:, 1] > 0).astype(int)
+
+data_device2 = np.random.randn(20, 2) + 1
+labels_device2 = (data_device2[:, 0] + data_device2[:, 1] > 1).astype(int)
+
+data_device3 = np.random.randn(20, 2) - 1
+labels_device3 = (data_device3[:, 0] + data_device3[:, 1] > -1).astype(int)
+
+devices = [(data_device1, labels_device1),
+           (data_device2, labels_device2),
+           (data_device3, labels_device3)]
+
+# --- Initialize global model (simple linear model) ---
+weights = np.zeros(2)
+bias = 0.0
+lr = 0.1  # learning rate
+
+# --- Federated Averaging Loop ---
+for round in range(5):
+    local_updates = []
+    
+    # Each device trains locally
+    for data, labels in devices:
+        w, b = weights.copy(), bias
+        for i in range(len(data)):
+            x = data[i]
+            y = labels[i]
+            y_pred = 1 / (1 + np.exp(-(np.dot(w, x) + b)))  # sigmoid
+            error = y - y_pred
+            # Gradient update
+            w += lr * error * x
+            b += lr * error
+        local_updates.append((w, b))
+    
+    # Server aggregates local updates (Federated Averaging)
+    weights = np.mean([u[0] for u in local_updates], axis=0)
+    bias = np.mean([u[1] for u in local_updates])
+    
+    print(f"Round {round+1} - Global weights: {weights}, bias: {bias:.3f}")
+
+print("\nFinal global model parameters:")
+print("Weights:", weights)
+print("Bias:", bias)
+</code></pre>
+</body>
+</html>

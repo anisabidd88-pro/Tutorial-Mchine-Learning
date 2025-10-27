@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Semi-Supervised Learning</title>
+</head>
+<body>
+<h3><a href="index.html">home</a></h3>
+<h1 style="text-align: center;"><strong>Semi-Supervised Learning</strong></h1>
+</br>
+<h2>What is Semi-Supervised Learning?</h2>
+<p>
+  <strong>Semi-Supervised Learning</strong> is a type of machine learning that combines a small amount of labeled data with a large amount of unlabeled data. This approach helps the model learn more effectively than using only labeled data, making it useful when labeling data is expensive or time-consuming.
+</p>
+<h2>Types of Semi-Supervised Learning</h2>
+<img src="images/3.png" width="1000" height="500" alt="Semi-Supervised Learning image">
+<table border="1" cellspacing="0" cellpadding="5">
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>What it is</th>
+      <th>When it is used</th>
+      <th>When it is preferred over other types</th>
+      <th>When it is not recommended</th>
+      <th>Examples of projects that is better use it incide him</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Self-Training</td>
+      <td>Self-Training is method where a model is first trained on a small labeled dataset, then it predicts labels for unlabeled data. The most confident predictions are added to the labeled set iteratively to improve the model.</td>
+      <td>
+        • When you have a small labeled dataset and a large unlabeled dataset.<br>
+        • When labeling data is expensive or time-consuming.<br>
+        • Useful for text classification, image recognition, and speech tasks.
+      </td>
+      <td>
+        • Better than Co-Training when you have only one view or feature set.<br>
+        • Better than Graph-based Semi-Supervised Learning when graph structure is unavailable.<br>
+        • Better than Generative Semi-Supervised Learning when you prefer a simpler, iterative approach without complex generative models.
+      </td>
+      <td>
+        • When predictions are not reliable — wrong labels may propagate errors.<br>
+        • When you have multiple complementary feature views — Co-Training is better.<br>
+        • When data naturally forms a graph or network structure — Graph-based methods perform better.<br>
+        • When you can train a generative model easily — Generative SSL may give more robust results.
+      </td>
+      <td>
+        • Text classification with few labeled emails and many unlabeled emails.<br>
+        • Image recognition with a small labeled image set and large unlabeled dataset.<br>
+        • Speech recognition using a few transcribed audio samples and many unlabeled audio files.<br>
+        • Medical diagnosis with a few labeled patient records and many unlabeled records.
+      </td>
+    </tr>
+    <tr>
+      <td>Co-Training</td>
+      <td>Co-Training is a method where two separate models are trained on different feature sets (views) of the same data. Each model labels unlabeled data for the other, iteratively improving both models.</td>
+      <td>
+        • When you have two or more complementary feature sets for the same data.<br>
+        • When labeled data is scarce but unlabeled data is abundant.<br>
+        • Common in web page classification, multimedia analysis, and text mining.
+      </td>
+      <td>
+        • Better than Self-Training when you have multiple independent views — reduces error propagation.<br>
+        • Better than Graph-based SSL when graph structure is unknown or hard to construct.<br>
+        • Better than Generative SSL when you prefer a simpler iterative method without complex generative models.
+      </td>
+      <td>
+        • When there is only one feature set — Co-Training cannot be applied.<br>
+        • When views are not independent or weakly correlated — models may reinforce errors.<br>
+        • When you can leverage graph structures — Graph-based SSL may be more effective.<br>
+        • When you can train generative models easily — Generative SSL may give better performance.
+      </td>
+      <td>
+        • Web page classification using text content and hyperlink structure as separate views.<br>
+        • Email spam detection using email body and metadata.<br>
+        • Multimedia classification using image features and audio features.
+      </td>
+    </tr>
+    <tr>
+      <td>Graph-based Semi-Supervised Learning</td>
+      <td>Graph-based SSL represents data as a graph, where nodes are samples and edges represent similarity or relationships. Labels propagate from labeled nodes to unlabeled nodes through the graph structure.</td>
+      <td>
+        • When data naturally forms a graph or network structure (e.g., social networks, citation networks).<br>
+        • When you have few labeled nodes and many unlabeled nodes connected via similarity.<br>
+        • Common in node classification, link prediction, and network analysis.
+      </td>
+      <td>
+        • Better than Self-Training when data relationships are crucial, not just iterative labeling.<br>
+        • Better than Co-Training when you don’t have multiple independent feature sets but have graph connectivity.<br>
+        • Better than Generative SSL when you want direct label propagation rather than building a generative model.<br>
+        • Ideal for networked or relational datasets.
+      </td>
+      <td>
+        • When data cannot be represented as a meaningful graph.<br>
+        • When only one small feature set is available and connectivity is weak — Self-Training may suffice.<br>
+        • When building graph is computationally expensive for very large datasets.<br>
+        • When a generative approach is more natural or effective.
+      </td>
+      <td>
+        • Node classification in a citation network (classify papers by topic).<br>
+        • Fraud detection in transaction networks.<br>
+        • Social network analysis (predict user interests based on friends).<br>
+        • Protein-protein interaction prediction in bioinformatics.
+      </td>
+    </tr>
+    <tr>
+      <td>Generative Semi-Supervised Learning</td>
+      <td>Generative Semi-Supervised Learning uses a generative model to learn the joint distribution of inputs and labels. It can generate synthetic data and assign labels to unlabeled data to improve learning.</td>
+      <td>
+        • When you have few labeled samples and a large amount of unlabeled data.<br>
+        • When modeling the data distribution can help improve classification.<br>
+        • Common in image generation, text generation, and speech tasks.
+      </td>
+      <td>
+        • Better than Self-Training when you want a probabilistic model that captures data distribution.<br>
+        • Better than Co-Training when multiple views are unavailable.<br>
+        • Better than Graph-based SSL when data is not naturally a graph.<br>
+        • Ideal when generative modeling is feasible and can improve semi-supervised learning.
+      </td>
+      <td>
+        • When generating a good generative model is difficult.<br>
+        • When data has complex structure or high dimensionality that is hard to model.<br>
+        • When simpler methods (Self-Training or Co-Training) suffice.<br>
+        • When the dataset is small and building a generative model may overfit.
+      </td>
+      <td>
+        • Semi-supervised image classification using a Variational Autoencoder (VAE).<br>
+        • Text classification with few labeled texts and a generative language model.<br>
+        • Speech recognition using generative models to label unlabeled audio.
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<h2>Code 1 (Pseudo-labeling [Self-training])</h2>
+<pre><code>
+import numpy as np
+from sklearn.datasets import make_classification
+from sklearn.model_selection import train_test_split
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.metrics import accuracy_score
+
+# 1️⃣ Create a small labeled dataset
+X, y = make_classification(n_samples=200, n_features=5, n_informative=3, n_classes=2, random_state=42)
+X_labeled, X_unlabeled, y_labeled, _ = train_test_split(X, y, test_size=0.7, random_state=42)  # 30% labeled, 70% unlabeled
+
+# 2️⃣ Train initial model on labeled data
+model = RandomForestClassifier()
+model.fit(X_labeled, y_labeled)
+
+# 3️⃣ Predict pseudo-labels for unlabeled data
+pseudo_labels = model.predict(X_unlabeled)
+
+# 4️⃣ Combine labeled data + pseudo-labeled data
+X_combined = np.vstack((X_labeled, X_unlabeled))
+y_combined = np.hstack((y_labeled, pseudo_labels))
+
+# 5️⃣ Retrain model on combined dataset
+model.fit(X_combined, y_combined)
+
+# 6️⃣ Evaluate model (on all data, just for demonstration)
+y_pred = model.predict(X)
+accuracy = accuracy_score(y, y_pred)
+print("Accuracy after pseudo-labeling:", accuracy)
+</code></pre>
+
+<h2>Code 2 (Label Propagation [Graph-based SSL])</h2>
+<pre><code>
+import numpy as np
+from sklearn.datasets import make_classification
+from sklearn.semi_supervised import LabelPropagation
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import accuracy_score
+
+# 1️⃣ Create dataset
+X, y = make_classification(n_samples=200, n_features=5, n_informative=3, n_classes=2, random_state=42)
+
+# 2️⃣ Split into labeled and unlabeled data
+X_labeled, X_unlabeled, y_labeled, y_unlabeled = train_test_split(X, y, test_size=0.7, random_state=42)
+y_unlabeled[:] = -1  # Mark unlabeled points with -1 as required by LabelPropagation
+
+# 3️⃣ Combine labeled and unlabeled labels
+y_combined = np.hstack((y_labeled, y_unlabeled))
+X_combined = np.vstack((X_labeled, X_unlabeled))
+
+# 4️⃣ Initialize Label Propagation model
+label_prop_model = LabelPropagation()
+label_prop_model.fit(X_combined, y_combined)
+
+# 5️⃣ Predict labels for all data
+y_pred = label_prop_model.transduction_
+
+# 6️⃣ Evaluate on original labels
+accuracy = accuracy_score(y, y_pred)
+print("Accuracy after Label Propagation:", accuracy)
+</code></pre>
+</body>
+</html>

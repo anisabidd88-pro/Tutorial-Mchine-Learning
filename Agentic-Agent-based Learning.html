@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Agentic / Agent-based Learning</title>
+</head>
+<body>
+<h3><a href="index.html">home</a></h3>
+<h1 style="text-align: center;"><strong>Agentic / Agent-based Learning</strong></h1>
+</br>
+<h2>What is Agentic / Agent-based Learning?</h2>
+<p>
+  <strong>Agentic (or Agent-based) Learning</strong> is a type of machine learning where autonomous agents interact with an environment to learn behaviors or strategies. Each agent makes decisions, observes outcomes, and adapts over time, often used in simulations, multi-agent systems, and reinforcement learning scenarios.
+</p>
+<h2>Types of Agentic / Agent-based Learning</h2>
+<img src="images/14.png" width="1400" height="400" alt="Agentic / Agent-based Learning image">
+<table border="1" cellspacing="0" cellpadding="5">
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>What it is</th>
+      <th>When it is used</th>
+      <th>When it is preferred over other types</th>
+      <th>When it is not recommended</th>
+      <th>Examples of projects that is better use it incide him</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Single-Agent RL</td>
+      <td>Single-Agent Reinforcement Learning (Single-Agent RL) involves one agent interacting with an environment to learn a policy that maximizes cumulative reward. The agent learns from its own actions and feedback, without other agents influencing the environment.</td>
+      <td>Used when the task only requires one decision-maker or actor in the environment, and there are no other intelligent agents affecting outcomes.</td>
+      <td>
+        • Better than Multi-Agent RL when there is only one controllable entity and no need to model interactions with others.<br>
+        • Simpler and more stable to train than cooperative or competitive multi-agent setups.<br>
+        • Ideal for isolated optimization problems.
+      </td>
+      <td>
+        • Not suitable when multiple agents interact or compete in the same environment.<br>
+        • Avoid if you need coordination or negotiation between agents.<br>
+        • Less effective for complex environments with multiple stakeholders.
+      </td>
+      <td>
+        • Autonomous robot navigation in a static environment.<br>
+        • Stock trading agent making decisions independently.<br>
+        • Game AI for single-player puzzles or simulations.
+      </td>
+    </tr>
+    <tr>
+      <td>Multi-Agent RL</td>
+      <td>Multi-Agent Reinforcement Learning (Multi-Agent RL) involves multiple agents interacting within the same environment. Agents may cooperate, compete, or both, and each learns a policy considering the actions of others.</td>
+      <td>Used when several decision-makers affect the environment, and their interactions are critical to task performance.</td>
+      <td>
+        • Better than Single-Agent RL when environment dynamics depend on multiple agents.<br>
+        • More suitable than isolated single-agent setups for coordination, competition, or negotiation tasks.<br>
+        • Ideal for modeling complex social or multi-actor systems.
+      </td>
+      <td>
+        • Not advised for simple, isolated problems with only one agent.<br>
+        • Avoid when scalability is limited, as training multiple agents can be computationally intensive.<br>
+        • Difficult if the environment is highly stochastic, making convergence slow.
+      </td>
+      <td>
+        • Autonomous vehicle coordination at intersections.<br>
+        • Multi-robot warehouse management for task allocation.<br>
+        • AI agents in multiplayer strategy games learning to cooperate or compete.
+      </td>
+    </tr>
+    <tr>
+      <td>Cooperative Agents</td>
+      <td>Cooperative Agents are a type of Multi-Agent Reinforcement Learning where multiple agents work together toward a shared goal, learning policies that maximize joint rewards rather than individual gains.</td>
+      <td>Used when collaboration among agents is required to achieve a task that a single agent cannot complete efficiently alone.</td>
+      <td>
+        • Better than Single-Agent RL when teamwork or shared objectives matter.<br>
+        • Better than general Multi-Agent RL when the focus is purely cooperation, not competition.<br>
+        • Ideal for resource allocation, coordination, or swarm robotics.
+      </td>
+      <td>
+        • Not suitable when agents need to compete or pursue individual goals.<br>
+        • Avoid for tasks solvable efficiently by a single agent.<br>
+        • Can be complex to train if joint reward signals are sparse or delayed.
+      </td>
+      <td>
+        • Drone swarm for search-and-rescue, coordinating to cover an area.<br>
+        • Multi-robot warehouse automation, optimizing package delivery together.<br>
+        • Collaborative AI assistants solving complex tasks jointly.
+      </td>
+    </tr>
+    <tr>
+      <td>Competitive Agents</td>
+      <td>Competitive Agents are a type of Multi-Agent Reinforcement Learning where multiple agents compete against each other, each aiming to maximize its own reward potentially at the expense of others.</td>
+      <td>Used when the environment involves rivalry or adversarial interactions, and the success of one agent may reduce the success of others.</td>
+      <td>
+        • Better than Single-Agent RL when the task involves opponents or adversaries.<br>
+        • Better than Cooperative Agents when the focus is on competition rather than collaboration.<br>
+        • Ideal for games, markets, or adversarial simulations.
+      </td>
+      <td>
+        • Not suitable for collaborative tasks where agents must cooperate.<br>
+        • Avoid when the environment is static and predictable, solvable by a single agent.<br>
+        • Training can be unstable if competitive dynamics are highly complex.
+      </td>
+      <td>
+        • AI for two-player board games (e.g., chess, Go).<br>
+        • Autonomous car racing where agents compete for best lap times.<br>
+        • Simulated trading agents in financial markets competing for profit.
+      </td>
+    </tr>
+    <tr>
+      <td>Hybrid Agent Systems</td>
+      <td>Hybrid Agent Systems combine cooperative and competitive agents within the same environment. Agents may collaborate in some tasks while competing in others, learning policies that balance both objectives.</td>
+      <td>Used when the environment requires a mix of collaboration and competition among multiple agents, reflecting real-world multi-agent dynamics.</td>
+      <td>
+        • Better than Single-Agent RL when multiple interacting agents exist.<br>
+        • Better than pure Cooperative or Competitive Agents when tasks involve both shared goals and rivalry.<br>
+        • Ideal for complex social simulations, economic modeling, or multi-team strategy games.
+      </td>
+      <td>
+        • Not suitable for simple tasks solvable by one agent or purely cooperative/competitive setups.<br>
+        • Avoid when training resources are limited, as balancing multiple objectives can be computationally intensive.<br>
+        • Can be hard to converge if reward signals for cooperation and competition conflict.
+      </td>
+      <td>
+        • Team-based multiplayer strategy games where teams cooperate internally but compete against other teams.<br>
+        • Autonomous driving in mixed traffic, where some vehicles cooperate while others act competitively.<br>
+        • Resource management simulations with multiple organizations balancing competition and collaboration.
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- Code 1: Single-Agent RL -->
+<h3>Code 1 (Single-Agent RL)</h3>
+<pre><code class="language-python">
+import numpy as np
+import random
+
+# Define environment
+states = 5  # positions 0 to 4
+actions = [0, 1]  # 0 = left, 1 = right
+goal = 4
+
+# Q-table initialization
+Q = np.zeros((states, len(actions)))
+
+# Hyperparameters
+alpha = 0.1   # learning rate
+gamma = 0.9   # discount factor
+epsilon = 0.2 # exploration rate
+episodes = 50
+
+# Q-learning loop
+for episode in range(episodes):
+    state = 0  # start at position 0
+    done = False
+
+    while not done:
+        # Choose action (epsilon-greedy)
+        if random.uniform(0, 1) < epsilon:
+            action = random.choice(actions)
+        else:
+            action = np.argmax(Q[state])
+
+        # Take action
+        next_state = state + 1 if action == 1 else state - 1
+        next_state = max(0, min(states - 1, next_state))
+
+        # Reward
+        reward = 1 if next_state == goal else 0
+
+        # Q-learning update
+        Q[state, action] = Q[state, action] + alpha * (reward + gamma * np.max(Q[next_state]) - Q[state, action])
+
+        state = next_state
+        if state == goal:
+            done = True
+
+# Show learned Q-table
+print("Learned Q-table:")
+print(Q)
+
+# Test agent
+state = 0
+steps = [state]
+while state != goal:
+    action = np.argmax(Q[state])
+    state = state + 1 if action == 1 else state - 1
+    state = max(0, min(states - 1, state))
+    steps.append(state)
+
+print("Agent path to goal:", steps)
+</code></pre>
+
+<!-- Code 2: Multi-Agent RL -->
+<h3>Code 2 (Multi-Agent RL)</h3>
+<pre><code class="language-python">
+import numpy as np
+import random
+
+# Environment
+states = 5  # positions 0 to 4
+actions = [0, 1]  # 0 = left, 1 = right
+goal = 4
+
+# Initialize Q-tables for 2 agents
+Q_agent1 = np.zeros((states, len(actions)))
+Q_agent2 = np.zeros((states, len(actions)))
+
+# Hyperparameters
+alpha = 0.1
+gamma = 0.9
+epsilon = 0.2
+episodes = 50
+
+for episode in range(episodes):
+    state1 = 0
+    state2 = 0
+    done1 = False
+    done2 = False
+
+    while not (done1 and done2):
+        # --- Agent 1 ---
+        if not done1:
+            if random.uniform(0, 1) < epsilon:
+                action1 = random.choice(actions)
+            else:
+                action1 = np.argmax(Q_agent1[state1])
+            
+            next_state1 = max(0, min(states - 1, state1 + 1 if action1 == 1 else state1 - 1))
+            reward1 = 1 if next_state1 == goal else 0
+            Q_agent1[state1, action1] += alpha * (reward1 + gamma * np.max(Q_agent1[next_state1]) - Q_agent1[state1, action1])
+            state1 = next_state1
+            if state1 == goal:
+                done1 = True
+
+        # --- Agent 2 ---
+        if not done2:
+            if random.uniform(0, 1) < epsilon:
+                action2 = random.choice(actions)
+            else:
+                action2 = np.argmax(Q_agent2[state2])
+            
+            next_state2 = max(0, min(states - 1, state2 + 1 if action2 == 1 else state2 - 1))
+            reward2 = 1 if next_state2 == goal else 0
+            Q_agent2[state2, action2] += alpha * (reward2 + gamma * np.max(Q_agent2[next_state2]) - Q_agent2[state2, action2])
+            state2 = next_state2
+            if state2 == goal:
+                done2 = True
+
+# Show learned Q-tables
+print("Agent 1 Q-table:\n", Q_agent1)
+print("Agent 2 Q-table:\n", Q_agent2)
+
+# Test paths
+def test_agent(Q):
+    state = 0
+    path = [state]
+    while state != goal:
+        action = np.argmax(Q[state])
+        state = max(0, min(states - 1, state + 1 if action == 1 else state - 1))
+        path.append(state)
+    return path
+
+print("Agent 1 path:", test_agent(Q_agent1))
+print("Agent 2 path:", test_agent(Q_agent2))
+</code></pre>
+</body>
+</html>
