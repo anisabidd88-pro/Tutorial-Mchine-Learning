@@ -112,6 +112,39 @@
     <td>• When the problem requires logical reasoning with unstructured data (text, images, mixed data).<br>• When more interpretable models are needed compared to traditional Deep Learning.<br>• When the data contains complex rules or relationships that Neural Networks alone struggle to learn.</td>
     <td>• When the problem is simple and does not require logical inference (Deep Learning or Ensemble methods can be used).<br>• When resources are limited, as combining symbolic models with neural networks is complex and costly.<br>• When data is homogeneous and easy to predict without symbolic logic.</td>
     <td>• Answering complex questions that require logical inference plus text understanding.<br>• AI systems for understanding laws or regulations.<br>• Medical image analysis with predefined diagnostic rules
+  </tr>
+  <tr>
+    <td>Federated Learning</td>
+    <td>Federated Learning is a type of machine learning where models are trained across multiple devices without transferring the data to a central location. Only model updates are shared, preserving data privacy.</td>
+    <td>It is used when data is distributed across multiple sources or devices and cannot be centrally aggregated due to privacy concerns or large volume.</td>
+    <td>• When data is sensitive (e.g., medical or banking data).<br>• When the data volume is too large to store in one place.<br>• When we want to leverage multiple devices to train a shared model without compromising user privacy.</td>
+    <td>• When data is not distributed and can be easily and safely aggregated (traditional Supervised or Deep Learning can be used).<br>• When computational resources on edge devices are too limited to train the model.<br>• When connectivity between devices is weak or unstable (affecting update synchronization).</td>
+    <td>• Predicting smartphone keyboard words without sending user data to the cloud (e.g., Google Keyboard).<br>• Banking fraud detection across multiple banks without sharing sensitive data.<br>• Medical models for image analysis or diagnosis across hospitals without sharing patient data.</td>
+  </tr>
+  <tr>
+    <td>Explainable / Interpretable ML</td>
+    <td>Explainable / Interpretable ML is an approach in machine learning aimed at making model decisions understandable to humans, so it is possible to explain why a model made a certain decision or predicted a specific outcome.</td>
+    <td>It is used when human understanding of decisions is important, especially in sensitive fields like medicine, finance, or law, where users or experts need to interpret results before taking action.</td>
+    <td>• When high transparency and reliability in decisions are needed.<br>• When the model affects people's lives or finances.<br>• When wanting to detect errors or biases in the model.</td>
+    <td>• When the primary goal is maximum accuracy only, since interpretable models are often simpler and may be less accurate than complex Deep Learning models.<br>• When the data is extremely large and models are very complex, making interpretation difficult (e.g., some deep neural networks).<br>• When the application does not require human interpretability (e.g., internal recommendation optimization that is not sensitive).</td>
+    <td>• Medical diagnosis with explanations for each diagnosis.<br>• Banking loan systems to explain acceptance or rejection of a client application.<br>• Fraud detection models with explanations for why a transaction is considered suspicious.<br>• Insurance risk assessment with factors influencing the decision explained.</td>
+  </tr>
+  <tr>
+    <td>AutoML</td>
+    <td>AutoML is a technique aimed at automating the process of building machine learning models, including algorithm selection, hyperparameter tuning, and feature selection, so that anyone or any system can create an effective model without deep expertise.</td>
+    <td>It is used when we want to speed up model development or when advanced ML expertise is unavailable, while still needing reasonably accurate models quickly.</td>
+    <td>• When time is limited to build a model from scratch.<br>• When the team wants a good model without extensive experience in model tuning.<br>• When dealing with new data and needing to try multiple algorithms quickly.</td>
+    <td>• When full control over every step of model development is desired (precise customization).<br>• When resources are limited, as AutoML may require significant time and resources to try many options.<br>• When the problem requires deep interpretability or a highly customized model.</td>
+    <td>• Predicting product sales using large market datasets.<br>• Rapidly classifying images or text without designing a manual model.<br>• Quick fraud detection in banking transactions with new data.</td>
+  </tr>
+  <tr>
+    <td>Agentic / Agent-based Learning</td>
+    <td>Agentic / Agent-based Learning is an approach in machine learning that focuses on independent models or agents that interact with the environment and make decisions independently to achieve specific goals. This can include reinforcement learning, collective learning, or multi-agent interactions.</td>
+    <td>It is used when the problem is complex and involves multiple interacting entities, or when models need to make independent decisions in a dynamic and changing environment.</td>
+    <td>• When there is interaction between multiple agents (e.g., multiplayer games or cooperative robots).<br>• When models need to make sequential and independent decisions in a dynamic environment.<br>• When designing AI systems that can adapt and learn directly from the environment.</td>
+    <td>• When the problem is simple and can be solved with traditional Supervised or Ensemble models.<br>• When the environment is static and does not require sequential or interactive decision-making.<br>• When computational resources are limited, as training multiple agents can be very costly.</td>
+    <td>• Multi-agent AI games.<br>• Robots collaborating to complete shared tasks (e.g., industrial or search-and-rescue robots).<br>• Smart traffic management with agents representing traffic signals and vehicles.</td>
+  </tr>
 </table>
 <ul>
   <h3><li><a href="Supervised Learning.html">Supervised Learning</a></li>
@@ -132,4 +165,5 @@
 </br>
 </br>
 </body>
+
 </html>
